@@ -1,2 +1,7 @@
 # Rate.io
- Aplicativo de Rateio para Republicas 
+ Aplicativo mobile de Rateio para Republicas 
+
+ Framework utilizado - Flutter
+ Linguagem de Programação - Dart
+ 
+ 
