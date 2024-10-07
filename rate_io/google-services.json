@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "314552752091",
+    "project_id": "rate-io",
+    "storage_bucket": "rate-io.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314552752091:android:996888b6ee57eeda23b9fe",
+        "android_client_info": {
+          "package_name": "rate.io"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLAX2nVlJ1_PeuRahemGj15mefq9sTYkw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

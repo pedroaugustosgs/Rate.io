@@ -1,0 +1,12 @@
+specVersion: "v1beta"
+serviceId: "Rate.io"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdcdb"
+      cloudSql:
+        instanceId: "Rate.io-fdc"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]

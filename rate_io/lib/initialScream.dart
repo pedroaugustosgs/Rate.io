@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'loginScream.dart'; // Importa a tela de login
 
 class InitialScream extends StatefulWidget {
+  const InitialScream({super.key});
+
   @override
   _InitialScreamState createState() => _InitialScreamState(); // Cria um estado inicial do texto 
 }
@@ -18,7 +20,7 @@ class _InitialScreamState extends State<InitialScream> // fazendo a classe herda
     
     // Essa parte é a configuração da animação 
     _controller = AnimationController( // Inicializa o AnimationController
-      duration: Duration(seconds: 1), // Duração do efeito de fade
+      duration: const Duration(seconds: 1), // Duração do efeito de fade
       vsync: this,
     );
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);     // Define a animação do fade
@@ -26,7 +28,7 @@ class _InitialScreamState extends State<InitialScream> // fazendo a classe herda
     _controller.forward();   // Inicia a animação
 
     // Redireciona para a tela de login após 5 segundos
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => LoginScreen()),
@@ -50,7 +52,7 @@ class _InitialScreamState extends State<InitialScream> // fazendo a classe herda
             'rate.io',
             style: GoogleFonts.k2d(
               fontSize: 128,
-              color: Color(0xFF1F9BF2), // Cor do texto
+              color: const Color(0xFF1F9BF2), // Cor do texto
             ),
           ),
         ),
