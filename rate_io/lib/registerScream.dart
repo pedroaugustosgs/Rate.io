@@ -1,40 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'routes.dart'; // Importa o arquivo de rotas
 
+Future<void> navigateToRegisterScreen(BuildContext context) async {
+  Navigator.of(context).pushReplacementNamed('/registerScream');
+}
 
-class LoginPage extends StatefulWidget {
+  void _login(BuildContext context) async {
+    await Navigator.of(context).pushNamed(Routes.login);
+  }
+
+
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPage createState() => _RegisterPage();
 }
 
-Future<void> navigateToLoginSream(BuildContext context) async {
-  Navigator.of(context).pushReplacementNamed('/');
-}
-
-class _LoginPageState extends State<LoginPage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+class _RegisterPage extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String errorMessage = '';
 
-  Future<void> _login() async {
-    try {
-      await _auth.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-      // Login bem-sucedido, navegue para a próxima tela
-      Navigator.of(context).pushReplacementNamed('/home');
-    } catch (e) {
-      setState(() {
-        errorMessage = e.toString();
-      });
-    }
-  }
-
-  void _register(BuildContext context) async {
-    await Navigator.of(context).pushNamed(Routes.registerScream);
+  Future<void> _register() async {
+      Navigator.of(context).pushReplacementNamed('/registerScream');
   }
 
   @override
@@ -47,11 +34,11 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             SelectionContainer.disabled(
               child: Transform.translate(
-                offset: Offset(0, -150), // Mover 150px para cima (y negativo)
+                offset: Offset(0, -150), // Mover 400px para cima (y negativo)
                 child: Text(
                   'rate.io',
                   style: TextStyle(
-                    fontSize: 128,
+                    fontSize: 98,
                     fontWeight: FontWeight.bold,
                     color: Colors.blue,
                     fontFamily: 'K2D',
@@ -71,11 +58,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: _login,
-              child: Text('Login'),
-            ),
-            ElevatedButton(
-              onPressed: () => _register(context), // Passa a função corretamente
+               onPressed: () => _login(context), // Passa a função corretamente
               child: Text('Registrar-se'),
             ),
             SizedBox(height: 20),
