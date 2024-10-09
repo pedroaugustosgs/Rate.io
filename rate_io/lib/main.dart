@@ -2,7 +2,7 @@ import 'package:flutter/material.dart'; // Para widgets do Flutter
 import 'package:firebase_core/firebase_core.dart'; // Para inicializar o Firebase
 import 'firebase_options.dart'; // Para as opções de configuração do Firebase
 import 'initialScream.dart'; // Importa sua tela inicial
-
+import 'routes.dart';
 void main() async {
   // Assegura que os widgets do Flutter estão inicializados antes de usar
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,12 +25,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Rate.io',
+      initialRoute: Routes.login,
+      onGenerateRoute: Routes.generateRoute,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'K2D',
         scaffoldBackgroundColor: const Color(0xffefefef),
+       
         appBarTheme: const AppBarTheme(
           color: Color(0x00B1B0B0),
         ),
+        
       ),
       home: const InitialScream(), // Tela inicial após o Firebase ser inicializado
     );

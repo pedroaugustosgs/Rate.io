@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'loginScream.dart'; // Importa a tela de login
 
+
 class InitialScream extends StatefulWidget {
   const InitialScream({super.key});
 
@@ -31,7 +32,7 @@ class _InitialScreamState extends State<InitialScream> // fazendo a classe herda
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
+        MaterialPageRoute(builder: (context) => LoginPage()),
       );
     });
   }
