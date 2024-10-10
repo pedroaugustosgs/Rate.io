@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'routes.dart'; // Importa o arquivo de rotas
 
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -33,6 +32,8 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  // Pensar no recuperar senha que a gente é cabaço e não modelamos ela :P)
+
   void _register(BuildContext context) async {
     await Navigator.of(context).pushNamed(Routes.registerScream);
   }
@@ -60,25 +61,57 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 30, right: 16, left: 16, bottom: 15),
+              child: TextField(
+                controller: _emailController,
+                decoration: InputDecoration(labelText: 'Email'),
+              ),
             ),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Senha'),
-              obscureText: true,
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 30, right: 16, left: 16, bottom: 15),
+              child: TextField(
+                controller: _emailController,
+                decoration: InputDecoration(labelText: 'Senha'),
+              ),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _login,
-              child: Text('Login'),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 30, right: 16, left: 16, bottom: 15),
+              child: ElevatedButton(
+                onPressed: () =>
+                    _register(context), // Passa a função corretamente
+                child: Text('Criar conta'),
+              ),
             ),
-            ElevatedButton(
-              onPressed: () => _register(context), // Passa a função corretamente
-              child: Text('Registrar-se'),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 10, right: 16, left: 16, bottom: 30),
+              child: ElevatedButton(
+                onPressed: _login,
+                child: Text('Recuperar senha'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 30, vertical: 15), // Aumenta o padding
+                ),
+              ),
             ),
-            SizedBox(height: 20),
+
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 10, right: 16, left: 16, bottom: 30),
+              child: ElevatedButton(
+                onPressed: _login,
+                child: Text('Entrar'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 30, vertical: 15), // Aumenta o padding
+                ),
+              ),
+            ),
+
             if (errorMessage.isNotEmpty)
               Text(
                 errorMessage,
