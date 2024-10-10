@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
         password: _passwordController.text,
       );
       // Login bem-sucedido, navegue para a próxima tela
-      Navigator.of(context).pushReplacementNamed('/home');
+      Navigator.of(context).pushReplacementNamed('/homeScream');
     } catch (e) {
       setState(() {
         errorMessage = e.toString();
@@ -73,8 +73,9 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(
                   top: 30, right: 16, left: 16, bottom: 15),
               child: TextField(
-                controller: _emailController,
+                controller: _passwordController,
                 decoration: InputDecoration(labelText: 'Senha'),
+                obscureText: true,
               ),
             ),
             Padding(

@@ -38,11 +38,56 @@ class _RegisterPage extends State<RegisterPage> {
 
   void _registerNewUser() async {
     DateTime dataNascimento;
+    setState(() {
+      errorMessage = ''; // Limpar a mensagem de erro anterior
+    });
+
+    // Validações
+    if (_nameController.text.isEmpty ||
+        _emailController.text.isEmpty ||
+        _telefoneController.text.isEmpty ||
+        _faculdadeController.text.isEmpty ||
+        _cursoController.text.isEmpty ||
+        _passwordController.text.isEmpty ||
+        _idadeController.text.isEmpty ||
+        _selectedOption.isEmpty) {
+      setState(() {
+        errorMessage = 'Por favor, preencha todos os campos.';
+      });
+      return;
+    }
+
+    // Validação do formato do e-mail
+    bool emailValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(_emailController.text);
+    if (!emailValid) {
+      setState(() {
+        errorMessage = 'Por favor, insira um e-mail válido.';
+      });
+      return;
+    }
+
+    try {
+      dataNascimento = DateFormat('dd/MM/yyyy').parse(_idadeController.text);
+    } catch (e) {
+      setState(() {
+        errorMessage = 'Formato de data de nascimento inválido.';
+      });
+      return;
+    }
     try {
       dataNascimento = DateFormat('dd/MM/yyyy').parse(_idadeController.text);
     } catch (e) {
       print("Erro ao converter data: $e");
       // Você pode querer mostrar um erro ao usuário aqui
+      return;
+    }
+
+    if (_passwordController.text.length > 6) {
+      setState(() {
+        errorMessage = 'A senha deve ter pelo menos 6 caracteres.';
+      });
       return;
     }
     // Colete os dados do formulário
@@ -52,6 +97,7 @@ class _RegisterPage extends State<RegisterPage> {
     String faculdade = _faculdadeController.text;
     String curso = _cursoController.text;
     String sexo = _selectedOption;
+
     // Crie um novo usuário
     UserModel newUser = UserModel(
         nome: nome,
