@@ -3,17 +3,19 @@ import 'package:firebase_core/firebase_core.dart'; // Para inicializar o Firebas
 import 'firebase_options.dart'; // Para as opções de configuração do Firebase
 import 'initialScream.dart'; // Importa sua tela inicial
 import 'routes.dart';
+
 void main() async {
   // Assegura que os widgets do Flutter estão inicializados antes de usar
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   try {
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
     print("Firebase inicializado com sucesso!"); // Mensagem de sucesso
   } catch (e) {
     print("Erro ao inicializar o Firebase: $e"); // Mensagem de erro
   }
-  
+
   // Executa o aplicativo
   runApp(const MyApp());
 }
@@ -31,13 +33,37 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'K2D',
         scaffoldBackgroundColor: const Color(0xffefefef),
-       
         appBarTheme: const AppBarTheme(
           color: Color(0x00B1B0B0),
         ),
-        
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                textStyle: TextStyle(fontSize: 20),
+                foregroundColor: Color(0xFF497A9D))),
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: const TextStyle(
+            color: Color(0xFF497A9D), // Cor do texto da label
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: const BorderSide(
+                color: Color(0xFF497A9D)), // Cor da linha quando em foco
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            textStyle: TextStyle(
+                fontSize: 138), // Tamanho da fonte padrão para TextButton
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            textStyle: TextStyle(
+                fontSize: 138), // Tamanho da fonte padrão para OutlinedButton
+          ),
+        ),
       ),
-      home: const InitialScream(), // Tela inicial após o Firebase ser inicializado
+      home:
+          const InitialScream(), // Tela inicial após o Firebase ser inicializado
     );
   }
 }
