@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'routes.dart'; // Importa o arquivo de rotas
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'classes/user.dart';
+import 'package:intl/intl.dart'; // Certifique-se de importar esta biblioteca
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> navigateToRegisterScreen(BuildContext context) async {
   Navigator.of(context).pushReplacementNamed('/registerScream');
 }
 
-  void _login(BuildContext context) async {
-    await Navigator.of(context).pushNamed(Routes.login);
-  }
-
+void _login(BuildContext context) async {
+  await Navigator.of(context).pushNamed(Routes.login);
+}
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -18,56 +22,205 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPage extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _telefoneController = TextEditingController();
+  final TextEditingController _faculdadeController = TextEditingController();
+  final TextEditingController _cursoController = TextEditingController();
+  final MaskedTextController _idadeController =
+      MaskedTextController(mask: '00/00/0000');
+  String _selectedOption =
+      'Indefinido'; // COISA DE TCHOLA SÓ COLOQUEI POR QUE PRECISAVA DE UM VALOR INCIAL
+  // E EU IA PARECER MACHISTA SE COLOCAR HOMEM PRIMEIRO , SE COLOCAR
+  // FEMININO VAI TER IDIOTA ERRANDO INFERNO
+  // A GAYLANDIA ME VENCEU DESSA VEZ
   String errorMessage = '';
+  String newValue = '';
 
-  Future<void> _register() async {
-      Navigator.of(context).pushReplacementNamed('/registerScream');
+  void _registerNewUser() async {
+    DateTime dataNascimento;
+    try {
+      dataNascimento = DateFormat('dd/MM/yyyy').parse(_idadeController.text);
+    } catch (e) {
+      print("Erro ao converter data: $e");
+      // Você pode querer mostrar um erro ao usuário aqui
+      return;
+    }
+    // Colete os dados do formulário
+    String nome = _nameController.text;
+    String email = _emailController.text;
+    String telefone = _telefoneController.text;
+    String faculdade = _faculdadeController.text;
+    String curso = _cursoController.text;
+    String sexo = _selectedOption;
+    // Crie um novo usuário
+    UserModel newUser = UserModel(
+        nome: nome,
+        email: email,
+        telefone: telefone,
+        dataNascimento: dataNascimento,
+        faculdade: faculdade,
+        curso: curso,
+        sexo: sexo);
+
+    FirebaseFirestore.instance.collection('usuarios');
+    try {
+      // Crie o usuário no Firebase Authentication
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password:
+            _passwordController.text, // Use a senha do controlador de senha
+      );
+      // Obtenha o ID do usuário
+      String userId = userCredential.user!.uid;
+      newUser.id = userId;
+      CollectionReference usersCollection =
+          FirebaseFirestore.instance.collection('usuarios');
+
+      // Adicione o usuário na coleção do Firestore
+      await usersCollection
+          .doc(userId)
+          .set(newUser.toMap()); // Salve os dados do usuário
+      Navigator.of(context).pushReplacementNamed('/');
+    } catch (e) {
+      print("Erro ao salvar usuário: $e");
+      // Você pode querer lidar com erros aqui
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SelectionContainer.disabled(
-              child: Transform.translate(
-                offset: Offset(0, -150), // Mover 400px para cima (y negativo)
-                child: Text(
-                  'rate.io',
-                  style: TextStyle(
-                    fontSize: 98,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                    fontFamily: 'K2D',
-                    letterSpacing: 2.0,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Stack(
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 50),
+                  SelectionContainer.disabled(
+                    child: Transform.translate(
+                      offset: Offset(0, -100),
+                      child: Text(
+                        'rate.io',
+                        style: TextStyle(
+                          fontSize: 98,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                          fontFamily: 'K2D',
+                          letterSpacing: 2.0,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(right: 16, left: 16, bottom: 30),
+                    child: TextField(
+                      controller: _nameController,
+                      decoration: InputDecoration(labelText: 'Nome'),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(right: 16, left: 16, bottom: 30),
+                    child: TextField(
+                      controller: _emailController,
+                      decoration: InputDecoration(labelText: 'Email'),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(right: 16, left: 16, bottom: 30),
+                    child: TextField(
+                      controller: _telefoneController,
+                      decoration: InputDecoration(labelText: 'Telefone'),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(right: 16, left: 16, bottom: 30),
+                    child: TextField(
+                      controller: _idadeController,
+                      keyboardType: TextInputType.datetime,
+                      decoration: InputDecoration(
+                        labelText: 'Data de Nascimento',
+                        hintText: 'dd/MM/yyyy',
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(right: 16, left: 16, bottom: 30),
+                    child: TextField(
+                      controller: _faculdadeController,
+                      decoration: InputDecoration(labelText: 'Faculdade'),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(right: 16, left: 16, bottom: 30),
+                    child: TextField(
+                      controller: _cursoController,
+                      decoration: InputDecoration(labelText: 'Curso'),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(right: 16, left: 16, bottom: 30),
+                    child: TextField(
+                      controller: _passwordController,
+                      decoration: InputDecoration(labelText: 'Senha'),
+                      obscureText: false,
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(right: 16, left: 16, bottom: 30),
+                    child: DropdownButtonFormField<String>(
+                      value: _selectedOption, // Valor inicial (se houver)
+                      items: [
+                        DropdownMenuItem(
+                          child: Text("Masculino"),
+                          value: "Masculino",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("Feminino"),
+                          value: "Feminino",
+                        ),
+                        DropdownMenuItem(
+                          child: Text("Indefinido"),
+                          value: "Indefinido",
+                        ),
+                      ],
+                      onChanged: (newValue) {
+                        setState(() {
+                          _selectedOption = newValue!;
+                        });
+                      },
+                      decoration:
+                          InputDecoration(labelText: 'Escolha uma opção'),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () => _registerNewUser(),
+                    child: Text('Registrar-se'),
+                  ),
+                  SizedBox(height: 20),
+                  if (errorMessage.isNotEmpty)
+                    Text(
+                      errorMessage,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  SizedBox(height: 20),
+                ],
               ),
-            ),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-            ),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Senha'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-               onPressed: () => _login(context), // Passa a função corretamente
-              child: Text('Registrar-se'),
-            ),
-            SizedBox(height: 20),
-            if (errorMessage.isNotEmpty)
-              Text(
-                errorMessage,
-                style: TextStyle(color: Colors.red),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );
