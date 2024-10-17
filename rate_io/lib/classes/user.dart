@@ -18,7 +18,7 @@ class UserModel {
     required this.curso,
     required this.sexo,
   });
-
+  // essa esta com os valores certinhos por que já estamos usando ela no projeto enzo :)
   Map<String, dynamic> toMap() {
     return {
       'id': id,
