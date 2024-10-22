@@ -1,9 +1,9 @@
 import 'package:rate_io/classes/morador.dart';
 
-abstract class GastosModel {
-  MoradorModel morador;
+abstract class Gastos {
+  Morador morador;
 
-  GastosModel({required this.morador});
+  Gastos({required this.morador});
   // Método abstrato para mapear os gastos e despesas
   Map<String, dynamic>
       toMap(); // Imagino que aqui a gente coloque as funções que devem ser implementadas

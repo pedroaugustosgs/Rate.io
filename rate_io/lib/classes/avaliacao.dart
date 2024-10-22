@@ -1,8 +1,8 @@
-abstract class AvaliacaoModel {
+abstract class Avaliacao {
   int estrela;
   String comentario;
 
-  AvaliacaoModel({
+  Avaliacao({
     required this.estrela,
     required this.comentario,
   });

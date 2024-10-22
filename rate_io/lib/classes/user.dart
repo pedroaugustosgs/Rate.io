@@ -1,4 +1,4 @@
-class UserModel {
+class UserSystem {
   String? id;
   String nome;
   String email;
@@ -8,7 +8,7 @@ class UserModel {
   String curso;
   String sexo;
 
-  UserModel({
+  UserSystem({
     this.id,
     required this.nome,
     required this.email,
@@ -30,5 +30,18 @@ class UserModel {
       'curso': curso,
       'sexo': sexo,
     };
+  }
+
+  factory UserSystem.fromMap(Map<String, dynamic> map) {
+    return UserSystem(
+        id: map['id'],
+        nome: map['nome'],
+        email: map['email'],
+        telefone: map['telefone'],
+        dataNascimento: map['dataNascimento'],
+        faculdade: map['faculdade'],
+        curso: map['curso'],
+        sexo: map['sexo']
+    );
   }
 }
