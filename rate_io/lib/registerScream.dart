@@ -99,7 +99,7 @@ class _RegisterPage extends State<RegisterPage> {
     String sexo = _selectedOption;
 
     // Crie um novo usuário
-    UserModel newUser = UserModel(
+    UserSystem newUser = UserSystem(
         nome: nome,
         email: email,
         telefone: telefone,
