@@ -63,7 +63,7 @@ class _RepRegisterPage extends State<RepRegisterPage> {
       return;
     }
 
-    RepModel newRep = RepModel(
+    Rep newRep = Rep(
         nome: _nameController.text,
         anoFundacao: foundationYear,
         endereco: _addressController.text,

@@ -2,13 +2,13 @@ import 'dart:ffi';
 
 import 'package:rate_io/classes/morador.dart';
 
-class PagamentoModel {
+class Pagamento {
   String? id;
   Float valorPago;
   DateTime dataPagamento;
-  MoradorModel morador;
+  Morador morador;
 
-  PagamentoModel({
+  Pagamento({
     this.id,
     required this.valorPago,
     required this.dataPagamento,
@@ -18,6 +18,16 @@ class PagamentoModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'valorPago': valorPago,
+      'dataPagamento': dataPagamento,
+      'morador': morador
     };
+  }
+
+  factory Pagamento.fromMap(Map<String, dynamic> map) {
+    return Pagamento(
+        valorPago: map['valorPago'],
+        dataPagamento: map['dataPagamento'],
+        morador: map['morador']);
   }
 }

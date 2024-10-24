@@ -1,0 +1,11 @@
+SALVE ENZO, como o senhor está ?
+
+Usamos Flutter como o framework e a linguagem é o dart
+
+segue o link do nosso projeto do GitHub: 
+Dica -> rate_io/lib estão localizadas as telas, configurações de rota e ETC
+	rate_io/lib/classes é a pasta que enviamos junto desse arquivo
+	o resto é configuração do fireabse, bibliotecas e ETC...
+
+
+https://github.com/pedroaugustosgs/Rate.io
