@@ -4,6 +4,7 @@ import 'registerScream.dart';
 import 'repRegisterScream.dart';
 import 'homeScream.dart';
 import 'avaliaRepScream.dart'; // Import the AvaliaRepScreen
+import 'avaliaMoradorScreen.dart'; // Import the AvaliaMoradorScreen
 
 class Routes {
   static const String login = '/';
@@ -11,6 +12,7 @@ class Routes {
   static const String homeScream = '/homeScream';
   static const String repRegisterScream = '/repRegisterScream';
   static const String avaliaRepScream = '/avaliaRepScream'; // Add a constant for AvaliaRepScreen
+  static const String avaliaMoradorScreen = '/avaliaMoradorScreen'; // Add a constant for AvaliaMoradorScreen
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -24,6 +26,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => RepRegisterPage());
       case avaliaRepScream:
         return MaterialPageRoute(builder: (_) => AvaliaRepScreen()); // Add the route for AvaliaRepScreen
+      case avaliaMoradorScreen:
+        return MaterialPageRoute(builder: (_) => AvaliaMoradorScreen()); // Add the route for AvaliaMoradorScreen
       default:
         return MaterialPageRoute(builder: (_) => LoginPage()); // Tela padrão
     }

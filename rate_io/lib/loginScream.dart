@@ -118,6 +118,13 @@ class _LoginPageState extends State<LoginPage> {
                 errorMessage,
                 style: TextStyle(color: Colors.red),
               ),
+            Spacer(),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(Routes.avaliaMoradorScreen);
+              },
+              child: Text('Teste'),
+            ), // Botão de teste
           ],
         ),
       ),

@@ -61,6 +61,7 @@ class MyApp extends StatelessWidget {
                 fontSize: 138), // Tamanho da fonte padrão para OutlinedButton
           ),
         ),
+        
       ),
       home:
           const InitialScream(), // Tela inicial após o Firebase ser inicializado
