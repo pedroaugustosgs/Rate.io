@@ -61,6 +61,14 @@ class MyApp extends StatelessWidget {
                 fontSize: 138), // Tamanho da fonte padrão para OutlinedButton
           ),
         ),
+        sliderTheme: SliderThemeData(
+          activeTickMarkColor: Color(0xFF74c3fc),
+          activeTrackColor:Color(0xFF497A9D),
+          thumbColor: Color(0xFF497A9D),
+          valueIndicatorColor: Color(0xFF497A9D),
+          inactiveTrackColor: Color(0xFF74c3fc),
+          inactiveTickMarkColor: Color(0xffefefef),
+        )
       ),
       home:
           const InitialScream(), // Tela inicial após o Firebase ser inicializado
