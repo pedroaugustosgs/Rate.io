@@ -91,86 +91,100 @@ class _RepRegisterPage extends State<RepRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SelectionContainer.disabled(
-              child: Transform.translate(
-                offset: const Offset(0, -150), // Mover 400px para cima (y negativo)
-                child: const Text(
-                  'rate.io',
-                  style: TextStyle(
-                    fontSize: 98,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                    fontFamily: 'K2D',
-                    letterSpacing: 2.0,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Stack(
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 50),
+                  SelectionContainer.disabled(
+                    child: Transform.translate(
+                      offset: const Offset(0, -50),
+                      child: const Text(
+                        'rate.io',
+                        style: TextStyle(
+                          fontSize: 98,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                          fontFamily: 'K2D',
+                          letterSpacing: 2.0,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
-                ),
+                  TextField(
+                    controller: _nameController,
+                    decoration: const InputDecoration(labelText: 'Nome da República'),
+                  ),
+                  TextField(
+                    controller: _foundationYearController,
+                    decoration: const InputDecoration(labelText: 'Ano de Fundação'),
+                  ),
+                  TextField(
+                    controller: _addressController,
+                    decoration: const InputDecoration(labelText: 'Endereço'),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Lotação: ${_sliderValue.round()}',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: Theme.of(context).inputDecorationTheme.labelStyle?.color,
+                    )
+                  ),
+                  Slider(
+                    value: _sliderValue,
+                    min: 0.0,
+                    max: 30.0,
+                    divisions: 30,
+                    label: _sliderValue.round().toString(), 
+                    onChanged: (double newValue) {
+                      setState(() {
+                        _sliderValue = newValue;
+                      });
+                    },
+                  ),
+                  DropdownButtonFormField<String>(
+                    value: _selectedOption,
+                    items: [
+                      DropdownMenuItem(
+                        value: "Masculina",
+                        child: Text("Masculina"),
+                      ),
+                      DropdownMenuItem(
+                        value: "Feminina",
+                        child: Text("Feminina"),
+                      ),
+                      DropdownMenuItem(
+                        value: "Mista",
+                        child: Text("Mista"),
+                      ),
+                    ],
+                    onChanged: (newValue) {
+                      setState(() {
+                        _selectedOption = newValue!;
+                      });
+                    },
+                    decoration: InputDecoration(labelText: 'Escolha uma opção'),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () => _registerNewRep(),
+                    child: const Text('Registrar rep'),
+                  ),
+                  const SizedBox(height: 20),
+                  if (errorMessage.isNotEmpty)
+                    Text(
+                      errorMessage,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                ],
               ),
-            ),
-            TextField(
-              controller: _nameController,
-              decoration: const InputDecoration(labelText: 'Nome da República'),
-            ),
-            TextField(
-              controller: _foundationYearController,
-              decoration: const InputDecoration(labelText: 'Ano de Fundação'),
-            ),
-            TextField(
-              controller: _addressController,
-              decoration: const InputDecoration(labelText: 'Endereço'),
-            ),
-            Text('Lotação: ${_sliderValue.round()}'),
-            Slider(
-              value: _sliderValue,
-              min: 0.0,
-              max: 30.0,
-              divisions: 30,
-              label: _sliderValue.round().toString(), 
-              onChanged: (double newValue) {
-                setState(() {
-                  _sliderValue = newValue;
-                });
-              },
-            ),
-            DropdownButtonFormField<String>(
-              value: _selectedOption,
-              items: [
-                DropdownMenuItem(
-                  value: "Masculina",
-                  child: Text("Masculina"),
-                ),
-                DropdownMenuItem(
-                  value: "Feminina",
-                  child: Text("Feminina"),
-                ),
-                DropdownMenuItem(
-                  value: "Mista",
-                  child: Text("Mista"),
-                ),
-              ],
-              onChanged: (newValue) {
-                setState(() {
-                  _selectedOption = newValue!;
-                });
-              },
-              decoration: InputDecoration(labelText: 'Escolha uma opção'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-               onPressed: () => _registerNewRep(),
-              child: const Text('Registrar rep'),
-            ),
-            const SizedBox(height: 20),
-            if (errorMessage.isNotEmpty)
-              Text(
-                errorMessage,
-                style: const TextStyle(color: Colors.red),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );
