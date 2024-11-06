@@ -80,7 +80,7 @@ class _AvaliaMoradorScreenState extends State<AvaliaMoradorScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        // Enviar os dados para o backend ou processar de alguma forma
+                        // Enviar os dados pro banco - não implementado
                       }
                     },
                     child: Text('Enviar'),
