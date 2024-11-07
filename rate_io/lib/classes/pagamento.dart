@@ -1,10 +1,8 @@
-import 'dart:ffi';
-
 import 'package:rate_io/classes/morador.dart';
 
 class Pagamento {
   String? id;
-  Float valorPago;
+  double valorPago;
   DateTime dataPagamento;
   Morador morador;
 
