@@ -12,12 +12,12 @@ class Morador{
   Sexo sexo;
   String curso;
   String faculdade;
-  int idade;
-  List<Morador> avaliacaoes;
-  List<Tarefa> tarefas;
-  List<Pagamento> pagamentos;
-  List<Gastos> gastos;
-  Rep rep; // rep que ele mora
+  DateTime dataNascimento;
+  List<Morador>? avaliacaoes;
+  List<Tarefa>? tarefas;
+  List<Pagamento>? pagamentos;
+  List<Gastos>? gastos;
+  Rep? rep; // rep que ele mora
 
   Morador({
     this.id,
@@ -27,12 +27,12 @@ class Morador{
     required this.sexo,
     required this.curso,
     required this.faculdade,
-    required this.idade,
-    required this.avaliacaoes,
-    required this.tarefas,
-    required this.pagamentos,
-    required this.gastos,
-    required this.rep
+    required this.dataNascimento,
+    this.avaliacaoes,
+    this.tarefas,
+    this.pagamentos,
+    this.gastos,
+    this.rep
   });
 
   // Serializa o Morador para um Map<String, dynamic>
@@ -45,7 +45,7 @@ class Morador{
       'sexo': sexo,
       'curso': curso,
       'faculdade': faculdade,
-      'idade': idade,
+      'dataNascimento': dataNascimento,
       'avaliacoes': avaliacaoes,
       'tarefas': tarefas,
       'pagamentos': pagamentos,
@@ -64,7 +64,7 @@ class Morador{
       sexo: map['sexo'],
       curso: map['curso'],
       faculdade: map['faculdade'],
-      idade: map['idade'],
+      dataNascimento: map['idade'],
       avaliacaoes: List<Morador>.from(map['avaliacoes']),
       tarefas: List<Tarefa>.from(map['tarefas']),
       pagamentos: List<Pagamento>.from(map['pagamentos']),

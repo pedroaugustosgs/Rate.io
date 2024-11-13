@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:rate_io/classes/sexo.dart';
 import 'routes.dart'; // Importa o arquivo de rotas
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'classes/user.dart';
+import 'classes/morador.dart';
 import 'package:intl/intl.dart'; // Certifique-se de importar esta biblioteca
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,12 +31,25 @@ class _RegisterPage extends State<RegisterPage> {
   final MaskedTextController _idadeController =
       MaskedTextController(mask: '00/00/0000');
   String _selectedOption =
-      'Indefinido'; // COISA DE TCHOLA SÓ COLOQUEI POR QUE PRECISAVA DE UM VALOR INCIAL
+      'indefinido'; // COISA DE TCHOLA SÓ COLOQUEI POR QUE PRECISAVA DE UM VALOR INCIAL
+  Sexo opcaoDeMacho = Sexo.naoInformado;
   // E EU IA PARECER MACHISTA SE COLOCAR HOMEM PRIMEIRO , SE COLOCAR
   // FEMININO VAI TER IDIOTA ERRANDO INFERNO
   // A GAYLANDIA ME VENCEU DESSA VEZ
   String errorMessage = '';
   String newValue = '';
+
+  // Função para converter a opção selecionada para o enum Sexo
+  Sexo getSelectedSexo() {
+    switch (_selectedOption) {
+      case "Masculino":
+        return Sexo.masculino;
+      case "Feminino":
+        return Sexo.feminino;
+      default:
+        return Sexo.naoInformado;
+    }
+  }
 
   void _registerNewUser() async {
     DateTime dataNascimento;
@@ -49,8 +64,7 @@ class _RegisterPage extends State<RegisterPage> {
         _faculdadeController.text.isEmpty ||
         _cursoController.text.isEmpty ||
         _passwordController.text.isEmpty ||
-        _idadeController.text.isEmpty ||
-        _selectedOption.isEmpty) {
+        _idadeController.text.isEmpty) {
       setState(() {
         errorMessage = 'Por favor, preencha todos os campos.';
       });
@@ -83,23 +97,24 @@ class _RegisterPage extends State<RegisterPage> {
       // Você pode querer mostrar um erro ao usuário aqui
       return;
     }
-
-    if (_passwordController.text.length > 6) {
-      setState(() {
-        errorMessage = 'A senha deve ter pelo menos 6 caracteres.';
-      });
-      return;
-    }
+      
+if (_passwordController.text.length < 6) {
+  setState(() {
+    errorMessage = 'A senha deve ter pelo menos 6 caracteres.';
+  });
+  print("Error: Senha curta - ${_passwordController.text.length} caracteres");
+  return;
+}
     // Colete os dados do formulário
     String nome = _nameController.text;
     String email = _emailController.text;
     String telefone = _telefoneController.text;
     String faculdade = _faculdadeController.text;
     String curso = _cursoController.text;
-    String sexo = _selectedOption;
+    Sexo sexo = opcaoDeMacho;
 
     // Crie um novo usuário
-    UserSystem newUser = UserSystem(
+    Morador newUser = Morador(
         nome: nome,
         email: email,
         telefone: telefone,
@@ -227,7 +242,7 @@ class _RegisterPage extends State<RegisterPage> {
                     padding:
                         const EdgeInsets.only(right: 16, left: 16, bottom: 30),
                     child: DropdownButtonFormField<String>(
-                      value: _selectedOption, // Valor inicial (se houver)
+                      value: _selectedOption, // Valor inicial
                       items: [
                         DropdownMenuItem(
                           child: Text("Masculino"),
@@ -244,7 +259,8 @@ class _RegisterPage extends State<RegisterPage> {
                       ],
                       onChanged: (newValue) {
                         setState(() {
-                          _selectedOption = newValue!;
+                          _selectedOption = newValue!; // Atualiza a seleção
+                          opcaoDeMacho = getSelectedSexo();
                         });
                       },
                       decoration:
