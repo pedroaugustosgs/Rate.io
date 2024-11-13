@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
 
 class AvaliaRepScreen extends StatefulWidget {
   @override
@@ -8,11 +10,11 @@ class AvaliaRepScreen extends StatefulWidget {
 class _AvaliaRepScreenState extends State<AvaliaRepScreen> {
   final _formKey = GlobalKey<FormState>();
   String? _repName;
-  int _pinga = 0;
-  int _sossego = 0;
-  int _limpeza = 0;
-  int _resenha = 0;
-  int _custo = 0;
+  double _pinga = 0;
+  double _sossego = 0;
+  double _limpeza = 0;
+  double _resenha = 0;
+  double _custo = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -34,27 +36,27 @@ class _AvaliaRepScreenState extends State<AvaliaRepScreen> {
                 },
               ),
               SizedBox(height: 16.0),
-              _buildSlider('Pinga', _pinga, (value) {
+              _buildRatingBar('Pinga', _pinga, (value) {
                 setState(() {
                   _pinga = value;
                 });
               }),
-              _buildSlider('Sossego', _sossego, (value) {
+              _buildRatingBar('Sossego', _sossego, (value) {
                 setState(() {
                   _sossego = value;
                 });
               }),
-              _buildSlider('Limpeza', _limpeza, (value) {
+              _buildRatingBar('Limpeza', _limpeza, (value) {
                 setState(() {
                   _limpeza = value;
                 });
               }),
-              _buildSlider('Resenha', _resenha, (value) {
+              _buildRatingBar('Resenha', _resenha, (value) {
                 setState(() {
                   _resenha = value;
                 });
               }),
-              _buildSlider('Custo', _custo, (value) {
+              _buildRatingBar('Custo', _custo, (value) {
                 setState(() {
                   _custo = value;
                 });
@@ -87,20 +89,23 @@ class _AvaliaRepScreenState extends State<AvaliaRepScreen> {
     );
   }
 
-  Widget _buildSlider(String label, int value, ValueChanged<int> onChanged) {
+  Widget _buildRatingBar(String label, double value, ValueChanged<double> onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(label),
-        Slider(
-          value: value.toDouble(),
-          min: 0,
-          max: 5,
-          divisions: 5,
-          label: value.toString(),
-          onChanged: (double newValue) {
-            onChanged(newValue.toInt());
-          },
+          RatingBar.builder(
+          initialRating: value,
+          minRating: 0,
+          direction: Axis.horizontal,
+          allowHalfRating: true,
+          itemCount: 5,
+          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+          itemBuilder: (context, _) => Icon(
+            Icons.star,
+            color: Colors.amber,
+          ),
+          onRatingUpdate: onChanged,
         ),
       ],
     );

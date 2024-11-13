@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class AvaliaMoradorScreen extends StatefulWidget {
   @override
@@ -8,11 +9,11 @@ class AvaliaMoradorScreen extends StatefulWidget {
 class _AvaliaMoradorScreenState extends State<AvaliaMoradorScreen> {
   final _formKey = GlobalKey<FormState>();
   String? _id;
-  int _organizacao = 0;
-  int _convivencia = 0;
-  int _festivo = 0;
-  int _responsavel = 0;
-  int _estrelaInput = 0;
+  double _organizacao = 0;
+  double _convivencia = 0;
+  double _festivo = 0;
+  double _responsavel = 0;
+  double _estrelaInput = 0;
   String _comentarioInput = '';
 
   @override
@@ -35,27 +36,27 @@ class _AvaliaMoradorScreenState extends State<AvaliaMoradorScreen> {
                 },
               ),
               SizedBox(height: 16.0),
-              _buildSlider('Organização', _organizacao, (value) {
+              _buildRatingBar('Organização', _organizacao, (value) {
                 setState(() {
                   _organizacao = value;
                 });
               }),
-              _buildSlider('Convivência', _convivencia, (value) {
+              _buildRatingBar('Convivência', _convivencia, (value) {
                 setState(() {
                   _convivencia = value;
                 });
               }),
-              _buildSlider('Festivo', _festivo, (value) {
+              _buildRatingBar('Festivo', _festivo, (value) {
                 setState(() {
                   _festivo = value;
                 });
               }),
-              _buildSlider('Responsável', _responsavel, (value) {
+              _buildRatingBar('Responsável', _responsavel, (value) {
                 setState(() {
                   _responsavel = value;
                 });
               }),
-              _buildSlider('Estrelas', _estrelaInput, (value) {
+              _buildRatingBar('Estrelas', _estrelaInput, (value) {
                 setState(() {
                   _estrelaInput = value;
                 });
@@ -80,7 +81,7 @@ class _AvaliaMoradorScreenState extends State<AvaliaMoradorScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        // Enviar os dados pro banco - não implementado
+                        // Enviar os dados para o backend ou processar de alguma forma
                       }
                     },
                     child: Text('Enviar'),
@@ -94,20 +95,23 @@ class _AvaliaMoradorScreenState extends State<AvaliaMoradorScreen> {
     );
   }
 
-  Widget _buildSlider(String label, int value, ValueChanged<int> onChanged) {
+  Widget _buildRatingBar(String label, double value, ValueChanged<double> onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(label),
-        Slider(
-          value: value.toDouble(),
-          min: 0,
-          max: 5,
-          divisions: 5,
-          label: value.toString(),
-          onChanged: (double newValue) {
-            onChanged(newValue.toInt());
-          },
+        RatingBar.builder(
+          initialRating: value,
+          minRating: 0,
+          direction: Axis.horizontal,
+          allowHalfRating: true,
+          itemCount: 5,
+          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+          itemBuilder: (context, _) => Icon(
+            Icons.star,
+            color: Colors.amber,
+          ),
+          onRatingUpdate: onChanged,
         ),
       ],
     );
