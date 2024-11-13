@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rate_io/classes/morador.dart';
+import 'package:rate_io/classes/sexo.dart';
 import 'routes.dart'; // Importa o arquivo de rotas
+
+import 'models/moradorModel.dart';
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -121,7 +126,8 @@ class _LoginPageState extends State<LoginPage> {
             Spacer(),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(Routes.avaliaMoradorScreen);
+                MoradorModel moradorModel = MoradorModel();
+                Navigator.of(context).pushNamed(Routes.perfilMorador, arguments: moradorModel.read('Ms1z0dmYVpbYPWOupKtOmXEWLD03'));
               },
               child: Text('Teste'),
             ), // Botão de teste
