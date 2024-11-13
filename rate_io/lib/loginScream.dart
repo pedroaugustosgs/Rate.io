@@ -126,8 +126,8 @@ class _LoginPageState extends State<LoginPage> {
             Spacer(),
             ElevatedButton(
               onPressed: () {
-                MoradorModel moradorModel = MoradorModel();
-                Navigator.of(context).pushNamed(Routes.perfilMorador, arguments: moradorModel.read('Ms1z0dmYVpbYPWOupKtOmXEWLD03'));
+                
+                Navigator.of(context).pushNamed(Routes.avaliaRepScream);
               },
               child: Text('Teste'),
             ), // Botão de teste
