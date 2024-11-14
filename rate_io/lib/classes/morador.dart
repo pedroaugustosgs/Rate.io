@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rate_io/classes/avaliaMorador.dart';
+
 import 'rep.dart';
 import 'tarefa.dart';
 import 'gastos.dart';
@@ -13,7 +16,7 @@ class Morador{
   String curso;
   String faculdade;
   DateTime dataNascimento;
-  List<Morador>? avaliacaoes;
+  List<AvaliacaoMorador>? avaliacaoes;
   List<Tarefa>? tarefas;
   List<Pagamento>? pagamentos;
   List<Gastos>? gastos;
@@ -42,14 +45,14 @@ class Morador{
       'nome': nome,
       'email': email,
       'telefone': telefone,
-      'sexo': sexo,
+      'sexo': sexo.name,
       'curso': curso,
       'faculdade': faculdade,
-      'dataNascimento': dataNascimento,
-      'avaliacoes': avaliacaoes,
-      'tarefas': tarefas,
-      'pagamentos': pagamentos,
-      'gastos': gastos,
+      'dataNascimento': Timestamp.fromDate(dataNascimento),
+      'avaliacoes': avaliacaoes?.map((a) => a.toMap()).toList(),
+      'tarefas': tarefas?.map((a) => a.toMap()).toList(),
+      'pagamentos': pagamentos?.map((a) => a.toMap()).toList(),
+      'gastos': gastos?.map((a) => a.toMap()).toList(),
       'rep': rep,
     };
   }
@@ -61,14 +64,28 @@ class Morador{
       nome: map['nome'],
       email: map['email'],
       telefone: map['telefone'],
-      sexo: map['sexo'],
+      sexo: Sexo.values.firstWhere(
+        (e) => e.toString().split('.').last == map['sexo'],
+        orElse: () => Sexo.masculino,
+      ),
       curso: map['curso'],
       faculdade: map['faculdade'],
-      dataNascimento: map['idade'],
-      avaliacaoes: List<Morador>.from(map['avaliacoes']),
-      tarefas: List<Tarefa>.from(map['tarefas']),
-      pagamentos: List<Pagamento>.from(map['pagamentos']),
-      gastos: List<Gastos>.from(map['gastos']),
+      dataNascimento: (map['dataNascimento'] as Timestamp).toDate(), 
+      avaliacaoes: (map['avaliacoes'] as List<dynamic>?)
+        ?.map((a) => AvaliacaoMorador.fromMap(a as Map<String, dynamic>))
+        .toList(),
+
+      tarefas: (map['tarefas'] as List<dynamic>?)
+        ?.map((a) => Tarefa.fromMap(a as Map<String, dynamic>))
+        .toList(),
+
+      pagamentos: (map['pagamentos'] as List<dynamic>?)
+        ?.map((a) => Pagamento.fromMap(a as Map<String, dynamic>))
+        .toList(),
+
+      gastos: (map['gastos'] as List<dynamic>?)
+        ?.map((a) => Gastos.fromMap(a as Map<String, dynamic>))
+        .toList(),
       rep: map['rep'],
     );
   }

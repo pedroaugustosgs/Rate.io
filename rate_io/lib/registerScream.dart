@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rate_io/classes/sexo.dart';
 import 'routes.dart'; // Importa o arquivo de rotas
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'classes/user.dart';
 import 'classes/morador.dart';
 import 'package:intl/intl.dart'; // Certifique-se de importar esta biblioteca
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -31,7 +30,7 @@ class _RegisterPage extends State<RegisterPage> {
   final MaskedTextController _idadeController =
       MaskedTextController(mask: '00/00/0000');
   String _selectedOption =
-      'indefinido'; // COISA DE TCHOLA SÓ COLOQUEI POR QUE PRECISAVA DE UM VALOR INCIAL
+      'Indefinido'; // COISA DE TCHOLA SÓ COLOQUEI POR QUE PRECISAVA DE UM VALOR INCIAL
   Sexo opcaoDeMacho = Sexo.naoInformado;
   // E EU IA PARECER MACHISTA SE COLOCAR HOMEM PRIMEIRO , SE COLOCAR
   // FEMININO VAI TER IDIOTA ERRANDO INFERNO
@@ -123,7 +122,7 @@ if (_passwordController.text.length < 6) {
         curso: curso,
         sexo: sexo);
 
-    FirebaseFirestore.instance.collection('usuarios');
+    FirebaseFirestore.instance.collection('moradores');
     try {
       // Crie o usuário no Firebase Authentication
       UserCredential userCredential =
@@ -136,7 +135,7 @@ if (_passwordController.text.length < 6) {
       String userId = userCredential.user!.uid;
       newUser.id = userId;
       CollectionReference usersCollection =
-          FirebaseFirestore.instance.collection('usuarios');
+          FirebaseFirestore.instance.collection('moradores');
 
       // Adicione o usuário na coleção do Firestore
       await usersCollection
