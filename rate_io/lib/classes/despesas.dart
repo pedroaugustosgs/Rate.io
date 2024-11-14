@@ -1,4 +1,4 @@
-import 'dart:ffi';
+//import 'dart:ffi';
 
 import 'package:rate_io/classes/gastos.dart';
 import 'package:rate_io/classes/morador.dart';
@@ -6,7 +6,7 @@ import 'package:rate_io/classes/morador.dart';
 class Despesa extends Gastos {
   String? id;
   int nome;
-  Float valorTotal;
+  double valorTotal;
   DateTime dataVencimento;
 
   Despesa({
