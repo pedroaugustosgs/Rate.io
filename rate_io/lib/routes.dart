@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'loginScream.dart'; // Importar suas páginas
-import 'registerScream.dart';
-import 'repRegisterScream.dart';
-import 'homeScream.dart';
-import 'avaliaRepScream.dart'; // Import the AvaliaRepScreen
+import 'loginScreen.dart'; // Importar suas páginas
+import 'registerScreen.dart';
+import 'repRegisterScreen.dart';
+import 'homeScreen.dart';
+import 'avaliaRepScreen.dart'; // Import the AvaliaRepScreen
 import 'avaliaMoradorScreen.dart'; // Import the AvaliaMoradorScreen
 import 'perfilMoradorScreen.dart'; // Import the PerfilMorador screen
 

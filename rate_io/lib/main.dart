@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart'; // Para inicializar o Firebas
 import 'package:provider/provider.dart';
 import 'package:rate_io/classes/moradorProvider.dart';
 import 'firebase_options.dart'; // Para as opções de configuração do Firebase
-import 'initialScream.dart'; // Importa sua tela inicial
+import 'initialScreen.dart'; // Importa sua tela inicial
 import 'routes.dart';
 
 void main() async {
