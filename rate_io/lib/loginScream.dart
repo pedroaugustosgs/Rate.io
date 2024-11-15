@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rate_io/classes/morador.dart';
+import 'package:rate_io/classes/moradorProvider.dart';
 import 'package:rate_io/classes/sexo.dart';
 import 'routes.dart'; // Importa o arquivo de rotas
 
 import 'models/moradorModel.dart';
+import 'package:provider/provider.dart';
+
 
 
 class LoginPage extends StatefulWidget {
@@ -24,10 +28,13 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _login() async {
     try {
-      await _auth.signInWithEmailAndPassword(
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
+
+      await fetchAndSetMorador(context, userCredential.user!.uid);
+
       // Login bem-sucedido, navegue para a próxima tela
       Navigator.of(context).pushReplacementNamed('/homeScream');
     } catch (e) {
@@ -36,6 +43,28 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
   }
+
+  Future<void> fetchAndSetMorador(BuildContext context, String uid) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> snapshot = 
+          await FirebaseFirestore.instance.collection('moradores').doc(uid).get();
+
+      if (snapshot.exists) {
+        Morador morador = Morador.fromMap(snapshot.data()!);
+
+        // Set user in the provider
+        print("Setting user in provider...");
+        Provider.of<MoradorProvider>(context, listen: false).setUser(morador);
+        print("User set in provider: ${morador.nome}");
+
+      } else {
+        print("User document does not exist.");
+      }
+    } catch (e) {
+      print("Error fetching user: $e");
+    }
+  }
+
 
   // Pensar no recuperar senha que a gente é cabaço e não modelamos ela :P)
 
