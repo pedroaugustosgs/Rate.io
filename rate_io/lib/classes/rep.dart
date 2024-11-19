@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rate_io/classes/avaliaRep.dart';
 import 'package:rate_io/classes/evento.dart';
 import 'package:rate_io/classes/morador.dart';
@@ -9,7 +10,7 @@ class Rep {
   String endereco;
   int lotacao;
   String tipoSexo;
-  Morador? moradorADM;
+  String moradorADMId;
   List <AvaliaRep>? avaliacoes;
   List <Morador>? moradores;
   List <Evento>? eventos;
@@ -21,9 +22,8 @@ class Rep {
     required this.endereco,
     required this.lotacao,
     required this.tipoSexo,
-    // moradorADM esta como não obrigatório por enquanto para não quebrar nosso código enzo kkkkkk
+    required this.moradorADMId,
     this.avaliacoes,
-    this.moradorADM,
     this.moradores,
     this.eventos,
   });
@@ -32,20 +32,23 @@ class Rep {
     return {
       'id': id,
       'nome': nome,
-      'anoFundacao': anoFundacao,
+      'anoFundacao': Timestamp.fromDate(anoFundacao),
       'endereco': endereco,
       'lotacao': lotacao,
       'tipoSexo': tipoSexo,
+      'moradorADMId': moradorADMId,
     };
   }
 
   factory Rep.fromMap(Map<String, dynamic> map) {
     return Rep(
+    id: map['id'],
     nome: map['nome'], 
-    anoFundacao: map['anoFundacao'], 
+    anoFundacao: (map['anoFundacao'] as Timestamp).toDate(), 
     endereco: map['endereco'], 
     lotacao: map['lotacao'], 
     tipoSexo: map['tipoSexo'],
+    moradorADMId: map['moradorADMId'],
     );
   }
 }

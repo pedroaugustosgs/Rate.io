@@ -2,6 +2,7 @@ import 'package:flutter/material.dart'; // Para widgets do Flutter
 import 'package:firebase_core/firebase_core.dart'; // Para inicializar o Firebase
 import 'package:provider/provider.dart';
 import 'package:rate_io/classes/moradorProvider.dart';
+import 'package:rate_io/classes/repProvider.dart';
 import 'firebase_options.dart'; // Para as opções de configuração do Firebase
 import 'initialScreen.dart'; // Importa sua tela inicial
 import 'routes.dart';
@@ -20,10 +21,17 @@ void main() async {
 
   // Executa o aplicativo
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => MoradorProvider(),
-      child: MyApp(),
-    ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => MoradorProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => RepProvider(),
+        ),
+      ],
+      child: MyApp(), 
+    )
   );
 }
 
