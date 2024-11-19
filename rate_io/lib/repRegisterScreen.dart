@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rate_io/classes/morador.dart';
+import 'package:rate_io/classes/moradorProvider.dart';
+//import 'package:rate_io/models/moradorModel.dart';
 import 'routes.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'classes/rep.dart';
@@ -63,14 +67,24 @@ class _RepRegisterPage extends State<RepRegisterPage> {
       return;
     }
 
+    Morador? moradorUsuario = Provider.of<MoradorProvider>(context, listen: false).morador;
+
+    if (moradorUsuario == null) {
+      setState(() {
+        errorMessage = 'Usuário não identificado. Por favor, faça login novamente.';
+      });
+      return;
+    }
+
     Rep newRep = Rep(
         nome: _nameController.text,
         anoFundacao: foundationYear,
         endereco: _addressController.text,
         lotacao: _sliderValue.round(),
-        tipoSexo: _selectedOption);
+        tipoSexo: _selectedOption,
+        moradorADMId: moradorUsuario.id!
+    );
 
-    FirebaseFirestore.instance.collection('republicas');
     try {
       CollectionReference repCollection =
         FirebaseFirestore.instance.collection('republicas');
@@ -82,7 +96,15 @@ class _RepRegisterPage extends State<RepRegisterPage> {
           .doc(generatedRepId)
           .set(newRep.toMap());
 
-      Navigator.of(context).pushReplacementNamed('/');
+      moradorUsuario.repId = newRep.id;
+      await FirebaseFirestore.instance
+          .collection('moradores')
+          .doc(moradorUsuario.id)
+          .update(moradorUsuario.toMap());
+      //MoradorModel morador = MoradorModel();
+      //morador.update(moradorUsuario);
+
+      Navigator.of(context).pushReplacementNamed('/homeScreen');
     } catch (e) {
       print("Erro ao salvar república: $e");
     }

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rate_io/classes/morador.dart';
 import 'package:rate_io/classes/moradorProvider.dart';
-import 'package:rate_io/classes/sexo.dart';
+//import 'package:rate_io/classes/sexo.dart';
 import 'routes.dart'; // Importa o arquivo de rotas
 
-import 'models/moradorModel.dart';
+//import 'models/moradorModel.dart';
 import 'package:provider/provider.dart';
 
 
@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       await fetchAndSetMorador(context, userCredential.user!.uid);
 
       // Login bem-sucedido, navegue para a próxima tela
-      Navigator.of(context).pushReplacementNamed('/homeScream');
+      Navigator.of(context).pushReplacementNamed('/homeScreen');
     } catch (e) {
       setState(() {
         errorMessage = e.toString();
@@ -50,6 +50,7 @@ class _LoginPageState extends State<LoginPage> {
           await FirebaseFirestore.instance.collection('moradores').doc(uid).get();
 
       if (snapshot.exists) {
+        print('Dados do usuário: ${snapshot.data()}');
         Morador morador = Morador.fromMap(snapshot.data()!);
 
         // Set user in the provider
@@ -69,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
   // Pensar no recuperar senha que a gente é cabaço e não modelamos ela :P)
 
   void _register(BuildContext context) async {
-    await Navigator.of(context).pushNamed(Routes.registerScream);
+    await Navigator.of(context).pushNamed(Routes.registerScreen);
   }
 
   @override
@@ -156,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
             ElevatedButton(
               onPressed: () {
                 
-                Navigator.of(context).pushNamed(Routes.avaliaRepScream);
+                Navigator.of(context).pushNamed(Routes.avaliaRepScreen);
               },
               child: Text('Teste'),
             ), // Botão de teste

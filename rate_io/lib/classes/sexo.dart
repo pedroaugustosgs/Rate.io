@@ -1,5 +1,14 @@
 enum Sexo {
   masculino,
   feminino,
-  naoInformado, //O CÓDIGO ME VENCEU ENZO ERA PARA SER BOOLEAN MAS PRECISAVA DE UM VALOR INDEFINIDO PARA INICIALIZAR O DROPDOWN ;-;
+  naoInformado,
+}
+
+extension SexoExtension on Sexo {
+  static Sexo fromString(String sexoString) {
+    return Sexo.values.firstWhere(
+        (e) => e.toString().split('.').last == sexoString,
+        orElse: () => Sexo.naoInformado,
+      );
+  }
 }

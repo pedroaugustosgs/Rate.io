@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rate_io/classes/avaliaMorador.dart';
 
-import 'rep.dart';
+//import 'rep.dart';
 import 'tarefa.dart';
 import 'gastos.dart';
 import 'pagamento.dart';
@@ -20,7 +20,7 @@ class Morador{
   List<Tarefa>? tarefas;
   List<Pagamento>? pagamentos;
   List<Gastos>? gastos;
-  Rep? rep; // rep que ele mora
+  String? repId; // rep que ele mora
 
   Morador({
     this.id,
@@ -35,7 +35,7 @@ class Morador{
     this.tarefas,
     this.pagamentos,
     this.gastos,
-    this.rep
+    this.repId
   });
 
   // Serializa o Morador para um Map<String, dynamic>
@@ -53,7 +53,7 @@ class Morador{
       'tarefas': tarefas?.map((a) => a.toMap()).toList(),
       'pagamentos': pagamentos?.map((a) => a.toMap()).toList(),
       'gastos': gastos?.map((a) => a.toMap()).toList(),
-      'rep': rep,
+      'repId': repId,
     };
   }
 
@@ -64,10 +64,7 @@ class Morador{
       nome: map['nome'],
       email: map['email'],
       telefone: map['telefone'],
-      sexo: Sexo.values.firstWhere(
-        (e) => e.toString().split('.').last == map['sexo'],
-        orElse: () => Sexo.masculino,
-      ),
+      sexo: SexoExtension.fromString(map['sexo']),
       curso: map['curso'],
       faculdade: map['faculdade'],
       dataNascimento: (map['dataNascimento'] as Timestamp).toDate(), 
@@ -86,7 +83,7 @@ class Morador{
       gastos: (map['gastos'] as List<dynamic>?)
         ?.map((a) => Gastos.fromMap(a as Map<String, dynamic>))
         .toList(),
-      rep: map['rep'],
+      repId: map['repId'],
     );
   }
 }
