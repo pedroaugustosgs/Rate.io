@@ -272,6 +272,13 @@ if (_passwordController.text.length < 6) {
                     child: Text('Registrar-se'),
                   ),
                   SizedBox(height: 20),
+                  ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Voltar'),
+                  ),
+                  SizedBox(height: 20),
                   if (errorMessage.isNotEmpty)
                     Text(
                       errorMessage,

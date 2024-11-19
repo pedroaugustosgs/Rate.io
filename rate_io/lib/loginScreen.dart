@@ -157,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
             ElevatedButton(
               onPressed: () {
                 
-                Navigator.of(context).pushNamed(Routes.perfilOUTROMoradorScreen);
+                Navigator.of(context).pushNamed(Routes.PerfilrepScreen);
               },
               child: Text('Teste'),
             ), // Botão de teste
