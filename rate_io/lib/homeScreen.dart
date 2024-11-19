@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
 
   void _registerRep(BuildContext context) async {
-    await Navigator.of(context).pushNamed(Routes.repRegisterScreen);
+    await Navigator.of(context).pushNamed(Routes.repRegisterScream);
   }
   bool _isInit = true;
 
