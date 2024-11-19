@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
             ElevatedButton(
               onPressed: () {
                 
-                Navigator.of(context).pushNamed(Routes.avaliaRepScream);
+                Navigator.of(context).pushNamed(Routes.perfilMorador);
               },
               child: Text('Teste'),
             ), // Botão de teste

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'classes/morador.dart';
+import 'routes.dart';
 
 class PerfilMorador extends StatefulWidget {
   
@@ -55,27 +56,14 @@ class _PerfilMoradorState extends State<PerfilMorador> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Nome: ', style: TextStyle(fontSize: 18)),
-            Text('Email: ', style: TextStyle(fontSize: 18)),
-            Text('Sexo: ', style: TextStyle(fontSize: 18)),
-            Text('Rep: ', style: TextStyle(fontSize: 18)),
-            TextField(
-              controller: _telefoneController,
-              decoration: InputDecoration(labelText: 'Telefone'),
-            ),
-            TextField(
-              controller: _cursoController,
-              decoration: InputDecoration(labelText: 'Curso'),
-            ),
-            TextField(
-              controller: _faculdadeController,
-              decoration: InputDecoration(labelText: 'Faculdade'),
-            ),
-            TextField(
-              controller: _idadeController,
-              decoration: InputDecoration(labelText: 'Idade'),
-              keyboardType: TextInputType.number,
-            ),
+            Text('Nome: ', style: TextStyle(fontSize: 24)),
+            Text('Email: ', style: TextStyle(fontSize: 24)),
+            Text('Sexo: ', style: TextStyle(fontSize: 24)),
+            Text('Rep: ', style: TextStyle(fontSize: 24)),
+            Text('Telefone: ', style: TextStyle(fontSize: 24)),
+            Text('Curso: ', style: TextStyle(fontSize: 24)),
+            Text('Faculdade: ', style: TextStyle(fontSize: 24)),
+            Text('Idade: ', style: TextStyle(fontSize: 24)),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -93,8 +81,10 @@ class _PerfilMoradorState extends State<PerfilMorador> {
                   child: Text('Avaliações'),
                 ),
                 ElevatedButton(
-                  onPressed: _salvarAlteracoes,
-                  child: Text('Salvar'),
+                  onPressed: (){
+                    Navigator.of(context).pushNamed(Routes.editarPerfilMoradorScreen);
+                  },
+                  child: Text('Editar'),
                 ),
               ],
             ),
