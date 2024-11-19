@@ -9,6 +9,7 @@ import 'avaliaMoradorScreen.dart'; // Import the AvaliaMoradorScreen
 import 'perfilMoradorScreen.dart'; // Import the PerfilMorador screen
 import 'editarPerfilMoradorScreen.dart'; // Import the EditarPerfilMoradorScreen
 import 'perfilOUTROMoradorScreen.dart'; // Import the PerfilOUTROMoradorScreen
+import 'perfilRepScreen.dart'; // Import the PerfilRepScreen
 
 class Routes {
   static const String login = '/';
@@ -20,6 +21,7 @@ class Routes {
   static const String perfilMorador = '/perfilMorador'; 
   static const String editarPerfilMoradorScreen = '/editarPerfilMoradorScreen'; // Add a constant for EditarPerfilMoradorScreen
   static const String perfilOUTROMoradorScreen = '/perfilOUTROmoradorScreen'; // Add a constant for AvaliaMoradorScreen
+  static const String PerfilrepScreen = '/perfilRepScreen'; // Add a constant for Perfilrepscreen
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -41,6 +43,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => EditarPerfilMoradorScreen()); // Add the route for EditarPerfilMoradorScreen
       case perfilOUTROMoradorScreen:
         return MaterialPageRoute(builder: (_) => Perfiloutromoradorscreen()); // Add the route for 
+      case PerfilrepScreen:
+        return MaterialPageRoute(builder: (_) => Perfilrepscreen()); // Add the route for Perfilrepscreen
       default:
         return MaterialPageRoute(builder: (_) => LoginPage()); // Tela padrão
     }
