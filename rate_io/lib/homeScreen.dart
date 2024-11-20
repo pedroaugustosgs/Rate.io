@@ -92,7 +92,7 @@ class _HomePage extends State<HomePage> {
             Text("Olá, ${moradorUsuario.nome}!"),
             Text("Data de Nascimento: ${DateFormat('dd/MM/yyyy').format(moradorUsuario.dataNascimento)}"),
             Text("Curso: ${moradorUsuario.curso}"),
-            Text("Rep: ${repUsuario!.nome}"),
+            Text("Rep: ${repUsuario?.nome}"),
             Container(
               padding: EdgeInsets.all(16),
               child: Column(
