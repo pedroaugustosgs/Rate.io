@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
         )
       ),
       home:
-          const InitialScream(), // Tela inicial após o Firebase ser inicializado
+          const InitialScreen(), // Tela inicial após o Firebase ser inicializado
     );
   }
 }

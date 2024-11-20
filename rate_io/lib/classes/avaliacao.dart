@@ -1,10 +1,10 @@
 abstract class Avaliacao {
-  int estrela;
-  String comentario;
+  double estrela;
+  String? comentario;
 
   Avaliacao({
     required this.estrela,
-    required this.comentario,
+    this.comentario,
   });
 
   // Método abstrato para mapear a avaliação

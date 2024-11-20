@@ -8,8 +8,8 @@ class AvaliacaoMorador extends Avaliacao {
   int responsavel;
 
   // Corrigido para inicialização correta no construtor
-  int estrelaInput;
-  String comentarioInput;
+  double estrelaInput;
+  String? comentario;
 
   AvaliacaoMorador({
     required this.id,
@@ -18,10 +18,10 @@ class AvaliacaoMorador extends Avaliacao {
     required this.festivo,
     required this.responsavel,
     required this.estrelaInput, // Inicializa aqui
-    required this.comentarioInput, // Inicializa aqui
+    this.comentario, 
   }) : super(
           estrela: estrelaInput,
-          comentario: comentarioInput,
+          comentario: comentario,
         );
 
   // Serializa a AvaliacaoMorador para um Map<String, dynamic>
@@ -34,7 +34,7 @@ class AvaliacaoMorador extends Avaliacao {
       'festivo': festivo,
       'responsavel': responsavel,
       'estrela': estrelaInput,
-      'comentario': comentarioInput,
+      'comentario': comentario,
     };
   }
 
@@ -47,7 +47,7 @@ class AvaliacaoMorador extends Avaliacao {
       festivo: map['festivo'],
       responsavel: map['responsavel'],
       estrelaInput: map['estrela'],
-      comentarioInput: map['comentario'],
+      comentario: map['comentario'],
     );
   }
 }

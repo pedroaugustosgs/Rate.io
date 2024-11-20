@@ -2,20 +2,24 @@ import 'package:rate_io/classes/avaliacao.dart';
 
 class AvaliaRep extends Avaliacao {
   String? id;
-  int pinga;
-  int sossego;
-  int limpeza;
-  int resenha;
-  int custo;
+  double pinga;
+  double sossego;
+  double limpeza;
+  double resenha;
+  double custo;
+  String repId;
+  String autorId;
 
   AvaliaRep(
-      {required this.id,
-      required int estrela,
-      required String comentario,
+      {this.id,
+      required double estrela,
+      String? comentario,
       required this.pinga, // Inicializando o atributo local
       required this.sossego,
       required this.limpeza,
       required this.resenha,
+      required this.repId,
+      required this.autorId,
       required this.custo})
       : super(
           estrela: estrela,
@@ -34,6 +38,8 @@ class AvaliaRep extends Avaliacao {
       'limpeza': limpeza,
       'resenha': resenha,
       'custo': custo,
+      'repID': repId,
+      'autorID':autorId,
     };
   }
 
@@ -48,6 +54,8 @@ class AvaliaRep extends Avaliacao {
       limpeza: map['limpeza'],
       resenha: map['resenha'],
       custo: map['custo'],
+      repId: map['repId'],
+      autorId: map['autorID']
     );
   }
 }

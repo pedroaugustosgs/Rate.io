@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:rate_io/classes/morador.dart';
+import 'package:intl/intl.dart';
 import 'package:rate_io/classes/moradorProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_io/classes/rep.dart';
 import 'package:rate_io/classes/repProvider.dart';
-import 'package:rate_io/models/repModel.dart';
 import 'routes.dart';
 
-Future<void> navigateToHomeScream(BuildContext context) async {
+Future<void> navigateToHomeScreen(BuildContext context) async {
   Navigator.of(context).pushReplacementNamed('/homeScreen');
 }
 
@@ -20,8 +19,13 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
 
   void _registerRep(BuildContext context) async {
-    await Navigator.of(context).pushNamed(Routes.repRegisterScream);
+    await Navigator.of(context).pushNamed(Routes.repRegisterScreen);
   }
+
+  void _avaliaRep(BuildContext context) async {
+    await Navigator.of(context).pushNamed(Routes.avaliaRepScreen);
+  }
+
   bool _isInit = true;
 
   Future<void> fetchAndSetRep(BuildContext context, String uid) async {
@@ -86,7 +90,7 @@ class _HomePage extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Olá, ${moradorUsuario.nome}!"),
-            Text("Data de Nascimento: ${moradorUsuario.dataNascimento}"),
+            Text("Data de Nascimento: ${DateFormat('dd/MM/yyyy').format(moradorUsuario.dataNascimento)}"),
             Text("Curso: ${moradorUsuario.curso}"),
             Text("Rep: ${repUsuario!.nome}"),
             Container(
@@ -138,8 +142,8 @@ class _HomePage extends State<HomePage> {
                   ),
                   SizedBox(height: 10),
                   ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Avaliar Rep/Membro'),
+                    onPressed: () => _avaliaRep(context),
+                    child: Text('Avaliar Rep'),
                   ),
                 ],
               ),
@@ -151,7 +155,7 @@ class _HomePage extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Opa, ${moradorUsuario?.nome}, parece que você não está cadastrado numa rep."),
+            Text("Opa, ${moradorUsuario.nome}, parece que você não está cadastrado numa rep."),
             SizedBox(height: 10),
             ElevatedButton(
                     onPressed: () => _registerRep(context),

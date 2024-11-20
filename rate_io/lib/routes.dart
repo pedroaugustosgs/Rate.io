@@ -13,10 +13,10 @@ import 'perfilRepScreen.dart'; // Import the PerfilRepScreen
 
 class Routes {
   static const String login = '/';
-  static const String registerScream = '/registerScream';
-  static const String homeScream = '/homeScream';
-  static const String repRegisterScream = '/repRegisterScream';
-  static const String avaliaRepScream = '/avaliaRepScream'; 
+  static const String registerScreen = '/registerScreen';
+  static const String homeScreen = '/homeScreen';
+  static const String repRegisterScreen = '/repRegisterScreen';
+  static const String avaliaRepScreen = '/avaliaRepScreen'; 
   static const String avaliaMoradorScreen = '/avaliaMoradorScreen'; 
   static const String perfilMorador = '/perfilMorador'; 
   static const String editarPerfilMoradorScreen = '/editarPerfilMoradorScreen'; // Add a constant for EditarPerfilMoradorScreen
@@ -27,13 +27,13 @@ class Routes {
     switch (settings.name) {
       case login:
         return MaterialPageRoute(builder: (_) => LoginPage());
-      case registerScream:
+      case registerScreen:
         return MaterialPageRoute(builder: (_) => RegisterPage());
-      case homeScream:
+      case homeScreen:
         return MaterialPageRoute(builder: (_) => HomePage());
-      case repRegisterScream:
+      case repRegisterScreen:
         return MaterialPageRoute(builder: (_) => RepRegisterPage());
-      case avaliaRepScream:
+      case avaliaRepScreen:
         return MaterialPageRoute(builder: (_) => AvaliaRepScreen()); 
       case avaliaMoradorScreen:
         return MaterialPageRoute(builder: (_) => AvaliaMoradorScreen()); 

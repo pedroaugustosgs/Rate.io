@@ -8,7 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> navigateToRegisterScreen(BuildContext context) async {
-  Navigator.of(context).pushReplacementNamed('/registerScream');
+  Navigator.of(context).pushReplacementNamed('/registerScreen');
 }
 
 void _login(BuildContext context) async {

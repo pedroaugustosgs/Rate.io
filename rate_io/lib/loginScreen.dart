@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
   // Pensar no recuperar senha que a gente é cabaço e não modelamos ela :P)
 
   void _register(BuildContext context) async {
-    await Navigator.of(context).pushNamed(Routes.registerScream);
+    await Navigator.of(context).pushNamed(Routes.registerScreen);
   }
 
   @override
