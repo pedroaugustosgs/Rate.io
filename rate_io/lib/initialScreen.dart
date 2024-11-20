@@ -3,14 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'loginScreen.dart'; // Importa a tela de login
 
 
-class InitialScream extends StatefulWidget {
-  const InitialScream({super.key});
+class InitialScreen extends StatefulWidget {
+  const InitialScreen({super.key});
 
   @override
-  _InitialScreamState createState() => _InitialScreamState(); // Cria um estado inicial do texto 
+  _InitialScreenState createState() => _InitialScreenState(); // Cria um estado inicial do texto 
 }
 
-class _InitialScreamState extends State<InitialScream> // fazendo a classe herdar os estados ( tendi merda nenhuma)
+class _InitialScreenState extends State<InitialScreen> // fazendo a classe herdar os estados ( tendi merda nenhuma)
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;

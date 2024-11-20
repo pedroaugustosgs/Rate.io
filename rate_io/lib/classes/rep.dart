@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rate_io/classes/avaliaRep.dart';
 import 'package:rate_io/classes/evento.dart';
 import 'package:rate_io/classes/morador.dart';
 
@@ -11,7 +10,7 @@ class Rep {
   int lotacao;
   String tipoSexo;
   String moradorADMId;
-  List <AvaliaRep>? avaliacoes;
+  List <String>? avaliacoesId;
   List <Morador>? moradores;
   List <Evento>? eventos;
 
@@ -23,7 +22,7 @@ class Rep {
     required this.lotacao,
     required this.tipoSexo,
     required this.moradorADMId,
-    this.avaliacoes,
+    this.avaliacoesId,
     this.moradores,
     this.eventos,
   });
@@ -37,6 +36,7 @@ class Rep {
       'lotacao': lotacao,
       'tipoSexo': tipoSexo,
       'moradorADMId': moradorADMId,
+      'avaliacoesID': avaliacoesId,
     };
   }
 
@@ -49,6 +49,7 @@ class Rep {
     lotacao: map['lotacao'], 
     tipoSexo: map['tipoSexo'],
     moradorADMId: map['moradorADMId'],
+    avaliacoesId: map['avaliacoesId'],
     );
   }
 }

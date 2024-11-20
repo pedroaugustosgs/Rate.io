@@ -12,7 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> navigateToRepRegisterScreen(BuildContext context) async {
-  Navigator.of(context).pushReplacementNamed('/repRegisterScream');
+  Navigator.of(context).pushReplacementNamed('/repRegisterScreen');
 }
 
 void _login(BuildContext context) async {
@@ -57,12 +57,6 @@ class _RepRegisterPage extends State<RepRegisterPage> {
       setState(() {
         errorMessage = 'Formato de ano de fundação inválido.';
       });
-      return;
-    }
-
-    try {
-      foundationYear = DateFormat('yyyy').parse(_foundationYearController.text);
-    } catch (e) {
       print("Erro ao converter data: $e");
       return;
     }
