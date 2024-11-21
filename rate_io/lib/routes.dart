@@ -10,6 +10,8 @@ import 'perfilMoradorScreen.dart'; // Import the PerfilMorador screen
 import 'editarPerfilMoradorScreen.dart'; // Import the EditarPerfilMoradorScreen
 import 'perfilOUTROMoradorScreen.dart'; // Import the PerfilOUTROMoradorScreen
 import 'perfilRepScreen.dart'; // Import the PerfilRepScreen
+import 'cadastrarContaScreen.dart'; // Import the CadastrarContaScreen
+import 'cadastrarPagamentoScreen.dart'; // Import the CadastrarPagamentoScreen
 
 class Routes {
   static const String login = '/';
@@ -22,6 +24,8 @@ class Routes {
   static const String editarPerfilMoradorScreen = '/editarPerfilMoradorScreen'; // Add a constant for EditarPerfilMoradorScreen
   static const String perfilOUTROMoradorScreen = '/perfilOUTROmoradorScreen'; // Add a constant for AvaliaMoradorScreen
   static const String PerfilrepScreen = '/perfilRepScreen'; // Add a constant for Perfilrepscreen
+  static const String CadastroContaScreen = '/cadastrarContaScreen'; // Add a constant for CadastrarContaScreen
+  static const String cadastrarPagamentoScreen = '/cadastrarPagamentoScreen'; // Add a constant for CadastrarPagamentoScreen
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -45,6 +49,10 @@ class Routes {
         return MaterialPageRoute(builder: (_) => Perfiloutromoradorscreen()); // Add the route for 
       case PerfilrepScreen:
         return MaterialPageRoute(builder: (_) => Perfilrepscreen()); // Add the route for Perfilrepscreen
+      case CadastroContaScreen:
+        return MaterialPageRoute(builder: (_) => CadastrarContaScreen()); // Add the route for CadastrarContaScreen
+      case cadastrarPagamentoScreen:
+        return MaterialPageRoute(builder: (_) => CadastrarPagamentoScreen()); // Add the route for CadastrarPagamentoScreen
       default:
         return MaterialPageRoute(builder: (_) => LoginPage()); // Tela padrão
     }
