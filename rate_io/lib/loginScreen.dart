@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             SelectionContainer.disabled(
               child: Transform.translate(
-                offset: Offset(0, -150), // Mover 150px para cima (y negativo)
+                offset: Offset(0, 0), // Mover 150px para cima (y negativo)
                 child: Text(
                   'rate.io',
                   style: TextStyle(
@@ -157,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
             ElevatedButton(
               onPressed: () {
                 
-                Navigator.of(context).pushNamed(Routes.PerfilrepScreen);
+                Navigator.of(context).pushNamed(Routes.cadastrarPagamentoScreen);
               },
               child: Text('Teste'),
             ), // Botão de teste
