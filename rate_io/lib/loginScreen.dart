@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text(
                   'rate.io',
                   style: TextStyle(
-                    fontSize: 128,
+                    fontSize: 100,
                     fontWeight: FontWeight.bold,
                     color: Colors.blue,
                     fontFamily: 'K2D',
