@@ -52,7 +52,7 @@ class _InitialScreenState extends State<InitialScreen> // fazendo a classe herda
           child: Text(
             'rate.io',
             style: GoogleFonts.k2d(
-              fontSize: 128,
+              fontSize: 100,
               color: const Color(0xFF1F9BF2), // Cor do texto
             ),
           ),
