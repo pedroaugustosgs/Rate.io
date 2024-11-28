@@ -26,6 +26,10 @@ class _HomePage extends State<HomePage> {
     await Navigator.of(context).pushNamed(Routes.avaliaRepScreen);
   }
 
+  void _cadastraEvento(BuildContext context) async {
+    await Navigator.of(context).pushNamed(Routes.cadastrarEventoScreen);
+  }
+
   bool _isInit = true;
 
   Future<void> fetchAndSetRep(BuildContext context, String uid) async {
@@ -171,6 +175,11 @@ class _HomePage extends State<HomePage> {
                   ElevatedButton(
                     onPressed: () => _avaliaRep(context),
                     child: Text('Avaliar Rep'),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () => _cadastraEvento(context),
+                    child: Text('Cadastrar Evento (teste)'),
                   ),
                 ],
               ),
