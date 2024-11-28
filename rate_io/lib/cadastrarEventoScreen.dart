@@ -18,13 +18,14 @@ class _CadastrarEventoScreenState extends State<CadastrarEventoScreen> {
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _descricaoController = TextEditingController();
   final MaskedTextController _dataController = MaskedTextController(mask: '00/00/0000');
-  //final TextEditingController _quantidadePessoas = TextEditingController();
+  final MaskedTextController _horaController = MaskedTextController(mask: '00:00');
+
 
   int numeroPessoas = 0;
   String errorMessage = '';
 
   void _registerEvento() async {
-    DateTime data;
+    DateTime dataHora;
 
     setState(() {
       errorMessage = '';
@@ -40,10 +41,17 @@ class _CadastrarEventoScreenState extends State<CadastrarEventoScreen> {
     }
 
     try {
-      data = DateFormat('dd/MM/yyyy').parse(_dataController.text);
+      final DateTime data = DateFormat('dd/MM/yyyy').parse(_dataController.text);
+      final String horaText = _horaController.text;
+      final List<String> horaPartes = horaText.split(':');
+      final int hora = int.parse(horaPartes[0]);
+      final int minuto = int.parse(horaPartes[1]);
+
+      dataHora = DateTime(data.year, data.month, data.day, hora, minuto);
+
     } catch (e) {
       setState(() {
-        errorMessage = 'Formato de data de nascimento inválido.';
+        errorMessage = 'Formato de data ou horário inválido.';
       });
       return;
     }
@@ -59,7 +67,7 @@ class _CadastrarEventoScreenState extends State<CadastrarEventoScreen> {
 
     Evento newEvento = Evento(
       nome: _nomeController.text,
-      data: data,
+      data: dataHora,
       descricao: _descricaoController.text,
       numeroPessoas: numeroPessoas,
       repId: repUsuario.id!
@@ -120,7 +128,6 @@ class _CadastrarEventoScreenState extends State<CadastrarEventoScreen> {
               ),
               SizedBox(height: 16.0),
               TextFormField(
-                //controller: _quantidadePessoas,
                 decoration: InputDecoration(labelText: 'Número de pessoas'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
@@ -144,6 +151,18 @@ class _CadastrarEventoScreenState extends State<CadastrarEventoScreen> {
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Por favor, insira a data do evento';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16.0),
+              TextFormField(
+                controller: _horaController,
+                decoration: InputDecoration(labelText: 'Horário do Evento'),
+                keyboardType: TextInputType.datetime,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor, insira o horário do evento';
                   }
                   return null;
                 },
