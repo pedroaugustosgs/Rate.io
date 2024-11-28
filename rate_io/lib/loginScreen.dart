@@ -75,6 +75,10 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
+    
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -87,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text(
                   'rate.io',
                   style: TextStyle(
-                    fontSize: 100,
+                    fontSize: screenWidth * 0.25,
                     fontWeight: FontWeight.bold,
                     color: Colors.blue,
                     fontFamily: 'K2D',
@@ -97,16 +101,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 30, right: 16, left: 16, bottom: 15),
+              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
               child: TextField(
                 controller: _emailController,
                 decoration: InputDecoration(labelText: 'Email'),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 30, right: 16, left: 16, bottom: 15),
+              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
               child: TextField(
                 controller: _passwordController,
                 decoration: InputDecoration(labelText: 'Senha'),
@@ -114,8 +116,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 30, right: 16, left: 16, bottom: 15),
+              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
               child: ElevatedButton(
                 onPressed: () =>
                     _register(context), // Passa a função corretamente
@@ -123,8 +124,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 10, right: 16, left: 16, bottom: 30),
+              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
               child: ElevatedButton(
                 onPressed: _login,
                 child: Text('Recuperar senha'),
@@ -136,8 +136,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 10, right: 16, left: 16, bottom: 30),
+              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
               child: ElevatedButton(
                 onPressed: _login,
                 child: Text('Entrar'),

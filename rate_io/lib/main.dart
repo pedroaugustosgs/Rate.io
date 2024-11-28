@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart'; // Para widgets do Flutter
 import 'package:firebase_core/firebase_core.dart'; // Para inicializar o Firebase
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_io/classes/moradorProvider.dart';
 import 'package:rate_io/classes/repProvider.dart';
@@ -40,6 +41,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
+
+
     return MaterialApp(
       title: 'Rate.io',
       initialRoute: Routes.login,
@@ -48,16 +54,19 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'K2D',
         scaffoldBackgroundColor: const Color(0xffefefef),
-        appBarTheme: const AppBarTheme(
-          color: Color(0x00B1B0B0),
+        appBarTheme: AppBarTheme(
+          color: const Color(0x00B1B0B0),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-                textStyle: TextStyle(fontSize: 20),
+                padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
+                textStyle: TextStyle(fontSize: screenWidth * 0.06), // Responsivo
+                minimumSize: Size(screenWidth * 0.4, screenHeight * 0.05), // Botão
                 foregroundColor: Color(0xFF497A9D))),
         inputDecorationTheme: InputDecorationTheme(
-          labelStyle: const TextStyle(
-            color: Color(0xFF497A9D), // Cor do texto da label
+          labelStyle: TextStyle(
+            color: const Color(0xFF497A9D), // Cor do texto da label
+            fontSize: screenWidth * 0.06, // Responsivo
           ),
           focusedBorder: UnderlineInputBorder(
             borderSide: const BorderSide(
@@ -66,14 +75,14 @@ class MyApp extends StatelessWidget {
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            textStyle: TextStyle(
-                fontSize: 138), // Tamanho da fonte padrão para TextButton
+            minimumSize: Size(screenWidth * 0.5, screenHeight * 0.06), // Tamanho do botão
+            textStyle: TextStyle(fontSize: screenWidth * 0.04), // Responsivo
           ),
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
-            textStyle: TextStyle(
-                fontSize: 138), // Tamanho da fonte padrão para OutlinedButton
+            textStyle: TextStyle(fontSize: screenWidth * 0.04), // Responsivo
+            fixedSize: Size(screenWidth * 0.7, screenHeight * 0.06), // Responsivo
           ),
         ),
         sliderTheme: SliderThemeData(
