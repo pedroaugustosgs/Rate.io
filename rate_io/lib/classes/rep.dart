@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rate_io/classes/evento.dart';
 import 'package:rate_io/classes/morador.dart';
 
 class Rep {
@@ -12,7 +11,7 @@ class Rep {
   String moradorADMId;
   List <String>? avaliacoesId;
   List <Morador>? moradores;
-  List <Evento>? eventos;
+  List <String>? eventosId;
 
   Rep({
     this.id,
@@ -24,7 +23,7 @@ class Rep {
     required this.moradorADMId,
     this.avaliacoesId,
     this.moradores,
-    this.eventos,
+    this.eventosId,
   });
 
   Map<String, dynamic> toMap() {
@@ -36,20 +35,26 @@ class Rep {
       'lotacao': lotacao,
       'tipoSexo': tipoSexo,
       'moradorADMId': moradorADMId,
-      'avaliacoesID': avaliacoesId,
+      'avaliacoesId': avaliacoesId,
+      'eventosId': eventosId,
     };
   }
 
   factory Rep.fromMap(Map<String, dynamic> map) {
     return Rep(
-    id: map['id'],
-    nome: map['nome'], 
-    anoFundacao: (map['anoFundacao'] as Timestamp).toDate(), 
-    endereco: map['endereco'], 
-    lotacao: map['lotacao'], 
-    tipoSexo: map['tipoSexo'],
-    moradorADMId: map['moradorADMId'],
-    avaliacoesId: map['avaliacoesId'],
+      id: map['id'],
+      nome: map['nome'], 
+      anoFundacao: (map['anoFundacao'] as Timestamp).toDate(), 
+      endereco: map['endereco'], 
+      lotacao: map['lotacao'], 
+      tipoSexo: map['tipoSexo'],
+      moradorADMId: map['moradorADMId'],
+      avaliacoesId: map['avaliacoesId'] != null
+        ? List<String>.from(map['avaliacoesId'])
+        : null,
+      eventosId: map['eventosId'] != null
+        ? List<String>.from(map['eventosId'])
+        : null,
     );
   }
 }

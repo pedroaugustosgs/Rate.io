@@ -70,7 +70,7 @@ class _AvaliaRepScreenState extends State<AvaliaRepScreen> {
           .doc(generatedAvaliacaoId)
           .set(newAvaliacao.toMap());
 
- await FirebaseFirestore.instance
+      await FirebaseFirestore.instance
         .collection('republicas')
         .doc(repUsuario.id)
         .update({
