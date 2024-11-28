@@ -22,7 +22,6 @@ class AvaliaRep extends Avaliacao {
       required this.autorId,
       required this.custo})
       : super(
-          estrela: estrela,
           comentario: comentario,
         );
 
@@ -31,7 +30,6 @@ class AvaliaRep extends Avaliacao {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'estrela': estrela,
       'comentario': comentario,
       'pinga': pinga,
       'sossego': sossego,

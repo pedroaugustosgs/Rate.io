@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:rate_io/classes/avaliaMorador.dart';
+import 'models/avaliaMoradorModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AvaliaMoradorScreen extends StatefulWidget {
+  final Map<String, dynamic> morador;
+  AvaliaMoradorScreen({required this.morador});
+
   @override
   _AvaliaMoradorScreenState createState() => _AvaliaMoradorScreenState();
 }
@@ -17,6 +23,11 @@ class _AvaliaMoradorScreenState extends State<AvaliaMoradorScreen> {
   String _comentarioInput = '';
 
   @override
+  void initState() {
+    super.initState();
+    _id = widget.morador['id'];
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -29,12 +40,6 @@ class _AvaliaMoradorScreenState extends State<AvaliaMoradorScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TextFormField(
-                decoration: InputDecoration(labelText: 'ID do Morador'),
-                onSaved: (value) {
-                  _id = value;
-                },
-              ),
               SizedBox(height: 16.0),
               _buildRatingBar('Organização', _organizacao, (value) {
                 setState(() {
@@ -82,6 +87,31 @@ class _AvaliaMoradorScreenState extends State<AvaliaMoradorScreen> {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
                         // Enviar os dados para o backend ou processar de alguma forma
+                        AvaliacaoMorador newAvaliacao = AvaliacaoMorador(
+                          id: _id,
+                          organizacao: _organizacao,
+                          convivencia: _convivencia,
+                          festivo: _festivo,
+                          responsavel: _responsavel,
+                        );
+                        print(newAvaliacao);
+                        FirebaseFirestore.instance.collection('moradores');
+                        try {
+                          // Obtenha o ID do usuário
+                          _id;
+                          CollectionReference usersCollection =
+                              FirebaseFirestore.instance
+                                  .collection('avaliacoesMoradores');
+
+                          // Adicione o usuário na coleção do Firestore
+                          usersCollection.doc().set(newAvaliacao
+                              .toMap()); // Salve os dados do usuário
+                          Navigator.of(context)
+                              .pushReplacementNamed('/mostraMoradoresScreen');
+                        } catch (e) {
+                          print("Erro ao salvar avaliacao: $e");
+                          // Você pode querer lidar com erros aqui
+                        }
                       }
                     },
                     child: Text('Enviar'),
@@ -95,7 +125,8 @@ class _AvaliaMoradorScreenState extends State<AvaliaMoradorScreen> {
     );
   }
 
-  Widget _buildRatingBar(String label, double value, ValueChanged<double> onChanged) {
+  Widget _buildRatingBar(
+      String label, double value, ValueChanged<double> onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
