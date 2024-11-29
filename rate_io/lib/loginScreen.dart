@@ -9,8 +9,6 @@ import 'routes.dart'; // Importa o arquivo de rotas
 //import 'models/moradorModel.dart';
 import 'package:provider/provider.dart';
 
-
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -46,8 +44,11 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> fetchAndSetMorador(BuildContext context, String uid) async {
     try {
-      DocumentSnapshot<Map<String, dynamic>> snapshot = 
-          await FirebaseFirestore.instance.collection('moradores').doc(uid).get();
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+          .instance
+          .collection('moradores')
+          .doc(uid)
+          .get();
 
       if (snapshot.exists) {
         print('Dados do usuário: ${snapshot.data()}');
@@ -57,7 +58,6 @@ class _LoginPageState extends State<LoginPage> {
         print("Setting user in provider...");
         Provider.of<MoradorProvider>(context, listen: false).setUser(morador);
         print("User set in provider: ${morador.nome}");
-
       } else {
         print("User document does not exist.");
       }
@@ -65,7 +65,6 @@ class _LoginPageState extends State<LoginPage> {
       print("Error fetching user: $e");
     }
   }
-
 
   // Pensar no recuperar senha que a gente é cabaço e não modelamos ela :P)
 
@@ -75,10 +74,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final screenWidth = mediaQuery.size.width;
-    final screenHeight = mediaQuery.size.height;
-    
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -91,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text(
                   'rate.io',
                   style: TextStyle(
-                    fontSize: screenWidth * 0.25,
+                    fontSize: 128,
                     fontWeight: FontWeight.bold,
                     color: Colors.blue,
                     fontFamily: 'K2D',
@@ -101,14 +96,16 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
+              padding: const EdgeInsets.only(
+                  top: 30, right: 16, left: 16, bottom: 15),
               child: TextField(
                 controller: _emailController,
                 decoration: InputDecoration(labelText: 'Email'),
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
+              padding: const EdgeInsets.only(
+                  top: 30, right: 16, left: 16, bottom: 15),
               child: TextField(
                 controller: _passwordController,
                 decoration: InputDecoration(labelText: 'Senha'),
@@ -116,7 +113,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
+              padding: const EdgeInsets.only(
+                  top: 30, right: 16, left: 16, bottom: 15),
               child: ElevatedButton(
                 onPressed: () =>
                     _register(context), // Passa a função corretamente
@@ -124,7 +122,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
+              padding: const EdgeInsets.only(
+                  top: 10, right: 16, left: 16, bottom: 30),
               child: ElevatedButton(
                 onPressed: _login,
                 child: Text('Recuperar senha'),
@@ -136,7 +135,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
 
             Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
+              padding: const EdgeInsets.only(
+                  top: 10, right: 16, left: 16, bottom: 30),
               child: ElevatedButton(
                 onPressed: _login,
                 child: Text('Entrar'),
@@ -155,8 +155,8 @@ class _LoginPageState extends State<LoginPage> {
             Spacer(),
             ElevatedButton(
               onPressed: () {
-                
-                Navigator.of(context).pushNamed(Routes.cadastrarPagamentoScreen);
+                Navigator.of(context)
+                    .pushNamed(Routes.cadastrarPagamentoScreen);
               },
               child: Text('Teste'),
             ), // Botão de teste

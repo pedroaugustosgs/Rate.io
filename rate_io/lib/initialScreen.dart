@@ -45,10 +45,6 @@ class _InitialScreenState extends State<InitialScreen> // fazendo a classe herda
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final screenWidth = mediaQuery.size.width;
-    final screenHeight = mediaQuery.size.height;
-
     return Scaffold(
       body: Center(
         child: FadeTransition(
@@ -56,7 +52,7 @@ class _InitialScreenState extends State<InitialScreen> // fazendo a classe herda
           child: Text(
             'rate.io',
             style: GoogleFonts.k2d(
-              fontSize: screenWidth * 0.3, // Tamanho do texto
+              fontSize: 128,
               color: const Color(0xFF1F9BF2), // Cor do texto
             ),
           ),

@@ -3,8 +3,6 @@ import 'classes/morador.dart';
 import 'routes.dart';
 
 class PerfilMorador extends StatefulWidget {
-  
-
   PerfilMorador();
 
   @override
@@ -81,8 +79,9 @@ class _PerfilMoradorState extends State<PerfilMorador> {
                   child: Text('Avaliações'),
                 ),
                 ElevatedButton(
-                  onPressed: (){
-                    Navigator.of(context).pushNamed(Routes.editarPerfilMoradorScreen);
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(Routes.editarPerfilMoradorScreen);
                   },
                   child: Text('Editar'),
                 ),
