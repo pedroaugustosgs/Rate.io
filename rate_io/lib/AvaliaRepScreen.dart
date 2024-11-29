@@ -70,12 +70,14 @@ class _AvaliaRepScreenState extends State<AvaliaRepScreen> {
           .doc(generatedAvaliacaoId)
           .set(newAvaliacao.toMap());
 
+
+      repUsuario.avaliacoesId ??= [];
+      repUsuario.avaliacoesId!.add(newAvaliacao.id!);
+
       await FirebaseFirestore.instance
-        .collection('republicas')
-        .doc(repUsuario.id)
-        .update({
-          'avaliacoesId': FieldValue.arrayUnion([newAvaliacao.id!])
-        });
+          .collection('republicas')
+          .doc(repUsuario.id)
+          .update(repUsuario.toMap());
 
       Navigator.of(context).pushReplacementNamed('/homeScreen');
     } catch (e) {

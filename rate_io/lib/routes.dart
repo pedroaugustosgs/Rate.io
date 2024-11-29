@@ -13,7 +13,6 @@ import 'editarPerfilMoradorScreen.dart'; // Import the EditarPerfilMoradorScreen
 import 'perfilRepScreen.dart'; // Import the PerfilRepScreen
 import 'cadastrarContaScreen.dart'; // Import the CadastrarContaScreen
 import 'cadastrarPagamentoScreen.dart'; // Import the CadastrarPagamentoScreen
-import 'cadastrarEventoScreen.dart';
 
 class Routes {
   static const String login = '/';
@@ -61,17 +60,32 @@ class Routes {
       case perfilMorador:
         return MaterialPageRoute(builder: (_) => PerfilMorador());
       case editarPerfilMoradorScreen:
-        return MaterialPageRoute(builder: (_) => EditarPerfilMoradorScreen()); 
+        return MaterialPageRoute(
+            builder: (_) =>
+                EditarPerfilMoradorScreen()); // Add the route for EditarPerfilMoradorScreen
       case perfilOUTROMoradorScreen:
-        return MaterialPageRoute(builder: (_) => Perfiloutromoradorscreen()); 
+        return MaterialPageRoute(
+            builder: (_) => Perfiloutromoradorscreen()); // Add the route for
       case PerfilrepScreen:
-        return MaterialPageRoute(builder: (_) => Perfilrepscreen()); 
+        return MaterialPageRoute(
+            builder: (_) =>
+                Perfilrepscreen()); // Add the route for Perfilrepscreen
       case CadastroContaScreen:
-        return MaterialPageRoute(builder: (_) => CadastrarContaScreen()); 
+        return MaterialPageRoute(
+            builder: (_) =>
+                CadastrarContaScreen()); // Add the route for CadastrarContaScreen
       case cadastrarPagamentoScreen:
-        return MaterialPageRoute(builder: (_) => CadastrarPagamentoScreen());
-      case cadastrarEventoScreen:
-        return MaterialPageRoute(builder: (_) => CadastrarEventoScreen());
+        return MaterialPageRoute(
+            builder: (_) =>
+                CadastrarPagamentoScreen()); // Add the route for CadastrarPagamentoScreen
+      case mostraMoradoresScreen:
+        return MaterialPageRoute(
+          builder: (_) => MostraMoradoresScreen(),
+          settings: RouteSettings(
+            arguments:
+                settings.arguments, // Passa o argumento para a tela de destino
+          ),
+        );
       default:
         return MaterialPageRoute(builder: (_) => LoginPage()); // Tela padrão
     }

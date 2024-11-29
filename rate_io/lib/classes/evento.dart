@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rate_io/classes/rep.dart';
 
 class Evento {
   String? id;
@@ -6,7 +6,7 @@ class Evento {
   DateTime data;
   String descricao;
   int numeroPessoas;
-  String repId;
+  Rep rep;
 
   Evento(
       {this.id,
@@ -14,16 +14,16 @@ class Evento {
       required this.data,
       required this.descricao,
       required this.numeroPessoas,
-      required this.repId});
+      required this.rep});
   // Serializa o Evento para um Map<String, dynamic>
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'nome': nome,
-      'data': Timestamp.fromDate(data), // Converte DateTime para String ISO 8601
+      'data': data.toIso8601String(), // Converte DateTime para String ISO 8601
       'descricao': descricao,
       'numeroPessoas': numeroPessoas,
-      'rep': repId,
+      'rep': rep,
     };
   }
 
@@ -32,10 +32,11 @@ class Evento {
     return Evento(
       id: map['id'],
       nome: map['nome'],
-      data: (map['data'] as Timestamp).toDate(),
+      data: DateTime.parse(
+          map['data']), // Converte String ISO 8601 de volta para DateTime
       descricao: map['descricao'],
       numeroPessoas: map['numeroPessoas'],
-      repId: map['rep'],
+      rep: map['rep'],
     );
   }
 }
