@@ -4,30 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:rate_io/classes/moradorProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_io/classes/rep.dart';
-import 'package:rate_io/classes/repProvider.dart';
 import 'routes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'classes/repProvider.dart';
 
 Future<void> navigateToHomeScreen(BuildContext context) async {
   Navigator.of(context).pushReplacementNamed('/homeScreen');
-}
-
-void saveIdRep(String key, String? value) async {
-  if (value == null) {
-    print('repId é nulo, nada foi salvo.');
-    return;
-  }
-
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.setString(key, value);
-  print('repId salvo: $value');
-}
-
-Future<String?> getIdRep(String key) async {
-  final prefs = await SharedPreferences.getInstance();
-  String? value = prefs.getString(key);
-  print('repId recuperado: $value');
-  return value;
 }
 
 class HomePage extends StatefulWidget {
@@ -56,20 +37,12 @@ class _HomePage extends State<HomePage> {
 
   Future<void> fetchAndSetRep(BuildContext context, String uid) async {
     try {
-      String? repId = await getIdRep('repId');
-      if (repId == null) {
-        print('repId is null');
-        return;
-      } else {
-        print('Rep ID retrieved: $repId');
-      }
-
-      print('Rep ID AAAAAAAAAAAAA: $repId');
-      print("REP ID SALVO NA MEMÓRIA: ${repId}");
-
-      // Verifique se o uid está correto
+      // Recupera o repId do SharedPreferences
+      String? repId = uid;
+      print('repId recuperado: $repId');
       print("Consultando a república com o UID: $uid");
 
+      // Consulta o Firebase para obter os dados da república
       DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
           .instance
           .collection('republicas')
@@ -77,34 +50,38 @@ class _HomePage extends State<HomePage> {
           .get();
 
       if (snapshot.exists) {
-        print('Dados da república: ${snapshot.data()}');
         var repData = snapshot.data();
         if (repData != null) {
           print('Dados para conversão: $repData');
           Rep rep = Rep.fromMap(repData);
-          print('Rep ID: ${rep.id}');
-          // Continue o processo
+
+          // Salva a república no Provider
+          print("Salvando a república no Provider...");
+          Provider.of<RepProvider>(context, listen: false).setUser(rep);
+          print("República salva no Provider: ${rep.id}");
         } else {
-          print('Dados da república estão vazios');
+          print('Dados da república estão vazios.');
         }
       } else {
-        print("User document does not exist.");
+        print("O documento da república não existe no Firebase.");
       }
     } catch (e) {
-      print("Error fetching user: $e");
+      print("Erro ao buscar dados da república: $e");
     }
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (_isInit) {
-      final moradorUsuario = Provider.of<MoradorProvider>(context).morador;
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final moradorUsuario =
+          Provider.of<MoradorProvider>(context, listen: false).morador;
+      print('Morador puxado ${moradorUsuario}');
       if (moradorUsuario?.repId != null) {
+        print('salve');
         fetchAndSetRep(context, moradorUsuario!.repId!);
       }
-      _isInit = false;
-    }
+    });
   }
 
   @override

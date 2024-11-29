@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rate_io/classes/morador.dart';
 import 'classes/rep.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'avaliaMoradorScreen.dart';
+import 'classes/repProvider.dart';
 import 'routes.dart';
 
 Widget _navigateAvaliaMorador({required Map<String, dynamic> morador}) {
@@ -13,9 +15,15 @@ class MostraMoradoresScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Tenta receber o argumento (Rep) da navegação
-    final Rep? rep = ModalRoute.of(context)!.settings.arguments as Rep?;
+    Rep? rep = ModalRoute.of(context)!.settings.arguments as Rep?;
 
     print('rep ${rep}');
+
+    if (rep == null) {
+      Rep? repUsuario = Provider.of<RepProvider>(context).rep;
+      rep = repUsuario;
+    }
+
     // Verifique se o 'rep' não é null
     if (rep == null) {
       return Scaffold(

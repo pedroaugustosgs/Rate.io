@@ -9,8 +9,6 @@ import 'routes.dart'; // Importa o arquivo de rotas
 //import 'models/moradorModel.dart';
 import 'package:provider/provider.dart';
 
-
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -46,8 +44,11 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> fetchAndSetMorador(BuildContext context, String uid) async {
     try {
-      DocumentSnapshot<Map<String, dynamic>> snapshot = 
-          await FirebaseFirestore.instance.collection('moradores').doc(uid).get();
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+          .instance
+          .collection('moradores')
+          .doc(uid)
+          .get();
 
       if (snapshot.exists) {
         print('Dados do usuário: ${snapshot.data()}');
@@ -57,7 +58,6 @@ class _LoginPageState extends State<LoginPage> {
         print("Setting user in provider...");
         Provider.of<MoradorProvider>(context, listen: false).setUser(morador);
         print("User set in provider: ${morador.nome}");
-
       } else {
         print("User document does not exist.");
       }
@@ -65,7 +65,6 @@ class _LoginPageState extends State<LoginPage> {
       print("Error fetching user: $e");
     }
   }
-
 
   // Pensar no recuperar senha que a gente é cabaço e não modelamos ela :P)
 
@@ -156,8 +155,8 @@ class _LoginPageState extends State<LoginPage> {
             Spacer(),
             ElevatedButton(
               onPressed: () {
-                
-                Navigator.of(context).pushNamed(Routes.cadastrarPagamentoScreen);
+                Navigator.of(context)
+                    .pushNamed(Routes.cadastrarPagamentoScreen);
               },
               child: Text('Teste'),
             ), // Botão de teste

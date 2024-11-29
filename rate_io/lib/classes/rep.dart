@@ -10,9 +10,9 @@ class Rep {
   int lotacao;
   String tipoSexo;
   String moradorADMId;
-  List <String>? avaliacoesId;
-  List <Morador>? moradores;
-  List <Evento>? eventos;
+  List<String>? avaliacoesId;
+  List<Morador>? moradores;
+  List<Evento>? eventos;
 
   Rep({
     this.id,
@@ -42,14 +42,16 @@ class Rep {
 
   factory Rep.fromMap(Map<String, dynamic> map) {
     return Rep(
-    id: map['id'],
-    nome: map['nome'], 
-    anoFundacao: (map['anoFundacao'] as Timestamp).toDate(), 
-    endereco: map['endereco'], 
-    lotacao: map['lotacao'], 
-    tipoSexo: map['tipoSexo'],
-    moradorADMId: map['moradorADMId'],
-    avaliacoesId: map['avaliacoesId'],
+      id: map['id'] as String?,
+      nome: map['nome'] as String,
+      anoFundacao: (map['anoFundacao'] as Timestamp).toDate(),
+      endereco: map['endereco'] as String,
+      lotacao: map['lotacao'] as int,
+      tipoSexo: map['tipoSexo'] as String,
+      moradorADMId: map['moradorADMId'] as String,
+      avaliacoesId: (map['avaliacoesId'] as List<dynamic>?)
+          ?.map((e) => e.toString())
+          .toList(), // Converte para List<String>
     );
   }
 }
