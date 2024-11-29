@@ -2,13 +2,12 @@ import 'package:rate_io/classes/avaliacao.dart';
 
 class AvaliacaoMorador extends Avaliacao {
   String? id;
-  int organizacao;
-  int convivencia;
-  int festivo;
-  int responsavel;
+  double organizacao;
+  double convivencia;
+  double festivo;
+  double responsavel;
 
   // Corrigido para inicialização correta no construtor
-  double estrelaInput;
   String? comentario;
 
   AvaliacaoMorador({
@@ -17,10 +16,8 @@ class AvaliacaoMorador extends Avaliacao {
     required this.convivencia,
     required this.festivo,
     required this.responsavel,
-    required this.estrelaInput, // Inicializa aqui
     this.comentario, 
   }) : super(
-          estrela: estrelaInput,
           comentario: comentario,
         );
 
@@ -33,7 +30,6 @@ class AvaliacaoMorador extends Avaliacao {
       'convivencia': convivencia,
       'festivo': festivo,
       'responsavel': responsavel,
-      'estrela': estrelaInput,
       'comentario': comentario,
     };
   }
@@ -46,7 +42,6 @@ class AvaliacaoMorador extends Avaliacao {
       convivencia: map['convivencia'],
       festivo: map['festivo'],
       responsavel: map['responsavel'],
-      estrelaInput: map['estrela'],
       comentario: map['comentario'],
     );
   }
