@@ -9,6 +9,7 @@ class Rep {
   int lotacao;
   String tipoSexo;
   String moradorADMId;
+
   List <String>? avaliacoesId;
   List <Morador>? moradores;
   List <String>? eventosId;
@@ -42,6 +43,7 @@ class Rep {
 
   factory Rep.fromMap(Map<String, dynamic> map) {
     return Rep(
+
       id: map['id'],
       nome: map['nome'], 
       anoFundacao: (map['anoFundacao'] as Timestamp).toDate(), 

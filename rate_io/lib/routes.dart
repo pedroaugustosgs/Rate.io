@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rate_io/mostraMoradoresScreen.dart';
 import 'package:rate_io/perfilOUTROMoradorScreen.dart';
 import 'loginScreen.dart'; // Importar suas páginas
 import 'registerScreen.dart';
@@ -8,7 +9,7 @@ import 'avaliaRepScreen.dart'; // Import the AvaliaRepScreen
 import 'avaliaMoradorScreen.dart'; // Import the AvaliaMoradorScreen
 import 'perfilMoradorScreen.dart'; // Import the PerfilMorador screen
 import 'editarPerfilMoradorScreen.dart'; // Import the EditarPerfilMoradorScreen
-import 'perfilOUTROMoradorScreen.dart'; // Import the PerfilOUTROMoradorScreen
+// Import the PerfilOUTROMoradorScreen
 import 'perfilRepScreen.dart'; // Import the PerfilRepScreen
 import 'cadastrarContaScreen.dart'; // Import the CadastrarContaScreen
 import 'cadastrarPagamentoScreen.dart'; // Import the CadastrarPagamentoScreen
@@ -19,15 +20,20 @@ class Routes {
   static const String registerScreen = '/registerScreen';
   static const String homeScreen = '/homeScreen';
   static const String repRegisterScreen = '/repRegisterScreen';
-  static const String avaliaRepScreen = '/avaliaRepScreen'; 
-  static const String avaliaMoradorScreen = '/avaliaMoradorScreen'; 
-  static const String perfilMorador = '/perfilMorador'; 
-  static const String editarPerfilMoradorScreen = '/editarPerfilMoradorScreen';
-  static const String perfilOUTROMoradorScreen = '/perfilOUTROmoradorScreen';
-  static const String PerfilrepScreen = '/perfilRepScreen'; 
-  static const String CadastroContaScreen = '/cadastrarContaScreen'; 
-  static const String cadastrarPagamentoScreen = '/cadastrarPagamentoScreen'; 
-  static const String cadastrarEventoScreen = '/cadastrarEventoScreen';
+  static const String avaliaRepScreen = '/avaliaRepScreen';
+  static const String avaliaMoradorScreen = '/avaliaMoradorScreen';
+  static const String perfilMorador = '/perfilMorador';
+  static const String editarPerfilMoradorScreen =
+      '/editarPerfilMoradorScreen'; // Add a constant for EditarPerfilMoradorScreen
+  static const String perfilOUTROMoradorScreen =
+      '/perfilOUTROmoradorScreen'; // Add a constant for AvaliaMoradorScreen
+  static const String PerfilrepScreen =
+      '/perfilRepScreen'; // Add a constant for Perfilrepscreen
+  static const String CadastroContaScreen =
+      '/cadastrarContaScreen'; // Add a constant for CadastrarContaScreen
+  static const String cadastrarPagamentoScreen =
+      '/cadastrarPagamentoScreen'; // Add a constant for CadastrarPagamentoScreen
+  static const String mostraMoradoresScreen = '/mostraMoradoresScreen';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -40,11 +46,20 @@ class Routes {
       case repRegisterScreen:
         return MaterialPageRoute(builder: (_) => RepRegisterPage());
       case avaliaRepScreen:
-        return MaterialPageRoute(builder: (_) => AvaliaRepScreen()); 
+        return MaterialPageRoute(builder: (_) => AvaliaRepScreen());
       case avaliaMoradorScreen:
-        return MaterialPageRoute(builder: (_) => AvaliaMoradorScreen()); 
+        return MaterialPageRoute(
+          builder: (_) => AvaliaMoradorScreen(
+            morador: settings.arguments
+                as Map<String, dynamic>, // Aqui passamos o argumento morador
+          ),
+          settings: RouteSettings(
+            arguments:
+                settings.arguments, // Passa o argumento para a tela de destino
+          ),
+        );
       case perfilMorador:
-        return MaterialPageRoute(builder: (_) => PerfilMorador()); 
+        return MaterialPageRoute(builder: (_) => PerfilMorador());
       case editarPerfilMoradorScreen:
         return MaterialPageRoute(builder: (_) => EditarPerfilMoradorScreen()); 
       case perfilOUTROMoradorScreen:

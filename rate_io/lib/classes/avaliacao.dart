@@ -1,9 +1,7 @@
 abstract class Avaliacao {
-  double estrela;
   String? comentario;
 
   Avaliacao({
-    required this.estrela,
     this.comentario,
   });
 
