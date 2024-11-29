@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+  int _currentIndex = 1;
   void _registerRep(BuildContext context) async {
     await Navigator.of(context).pushNamed(Routes.repRegisterScreen);
   }
@@ -25,12 +26,9 @@ class _HomePage extends State<HomePage> {
     await Navigator.of(context).pushNamed(Routes.avaliaRepScreen);
   }
 
-  void _listarMoradores(BuildContext context, Rep rep) async {
-    print(rep.id);
-    await Navigator.of(context).pushNamed(
-      Routes.mostraMoradoresScreen,
-      arguments: rep, // Passa o objeto Rep inteiro
-    );
+
+  void _cadastraEvento(BuildContext context) async {
+    await Navigator.of(context).pushNamed(Routes.cadastrarEventoScreen);
   }
 
   bool _isInit = true;
@@ -91,9 +89,36 @@ class _HomePage extends State<HomePage> {
 
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          if (_currentIndex == index) {
+            return; // Se o botão clicado for igual ao referente à tela atual, nada acontece
+          }
+          setState(() {
+            _currentIndex = index;
+          });
+          if (index == 0) {
+            Navigator.pushNamed(
+              context,
+              Routes.editarPerfilMoradorScreen,
+              arguments: moradorUsuario,
+            );
+          } else if (index == 1) {
+            Navigator.pushNamed(
+              context,
+              Routes.homeScreen,
+            );
+          } else if (index == 2) {
+            Navigator.pushNamed(
+              context,
+              Routes.perfilMorador,
+              arguments: moradorUsuario,
+            );
+          }
+        },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.search),
             label: '',
           ),
           BottomNavigationBarItem(
@@ -201,9 +226,31 @@ class _HomePage extends State<HomePage> {
                     onPressed: () => _registerRep(context),
                     child: Text('Registrar uma República'),
                   ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () => _cadastraEvento(context),
+                    child: Text('Cadastrar Evento (teste)'),
+                  ),
                 ],
               ),
             ),
+
+          ],
+        ),
+      ) 
+      : Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Opa, ${moradorUsuario.nome}, parece que você não está cadastrado numa rep."),
+            SizedBox(height: 10),
+            ElevatedButton(
+                    onPressed: () => _registerRep(context),
+                    child: Text('Criar uma República'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
