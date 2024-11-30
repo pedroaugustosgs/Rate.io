@@ -84,7 +84,7 @@ class _HomePage extends State<HomePage> {
           if (index == 0) {
             Navigator.pushNamed(
               context,
-              Routes.editarPerfilMoradorScreen,
+              Routes.buscaScreen,
               arguments: moradorUsuario,
             );
           } else if (index == 1) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rate_io/buscaScreen.dart';
 import 'package:rate_io/perfilOUTROMoradorScreen.dart';
 import 'loginScreen.dart'; // Importar suas páginas
 import 'registerScreen.dart';
@@ -28,6 +29,7 @@ class Routes {
   static const String CadastroContaScreen = '/cadastrarContaScreen'; 
   static const String cadastrarPagamentoScreen = '/cadastrarPagamentoScreen'; 
   static const String cadastrarEventoScreen = '/cadastrarEventoScreen';
+  static const String buscaScreen = '/buscaScreen';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -57,6 +59,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => CadastrarPagamentoScreen());
       case cadastrarEventoScreen:
         return MaterialPageRoute(builder: (_) => CadastrarEventoScreen());
+      case buscaScreen:
+        return MaterialPageRoute(builder: (_) => BuscaScreen());
       default:
         return MaterialPageRoute(builder: (_) => LoginPage()); // Tela padrão
     }
