@@ -14,6 +14,7 @@ import 'perfilRepScreen.dart'; // Import the PerfilRepScreen
 import 'cadastrarContaScreen.dart'; // Import the CadastrarContaScreen
 import 'cadastrarPagamentoScreen.dart'; // Import the CadastrarPagamentoScreen
 import 'cadastrarEventoScreen.dart';
+import 'mostraMoradoresScreen.dart';
 
 class Routes {
   static const String login = '/';
@@ -30,6 +31,7 @@ class Routes {
   static const String cadastrarPagamentoScreen = '/cadastrarPagamentoScreen'; 
   static const String cadastrarEventoScreen = '/cadastrarEventoScreen';
   static const String buscaScreen = '/buscaScreen';
+  static const String mostraMoradoresScreen = '/mostraMoradoresScreen';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -43,8 +45,6 @@ class Routes {
         return MaterialPageRoute(builder: (_) => RepRegisterPage());
       case avaliaRepScreen:
         return MaterialPageRoute(builder: (_) => AvaliaRepScreen()); 
-      case avaliaMoradorScreen:
-        return MaterialPageRoute(builder: (_) => AvaliaMoradorScreen()); 
       case perfilMorador:
         return MaterialPageRoute(builder: (_) => PerfilMorador()); 
       case editarPerfilMoradorScreen:
@@ -61,6 +61,14 @@ class Routes {
         return MaterialPageRoute(builder: (_) => CadastrarEventoScreen());
       case buscaScreen:
         return MaterialPageRoute(builder: (_) => BuscaScreen());
+        case mostraMoradoresScreen:
+        return MaterialPageRoute(
+          builder: (_) => MostraMoradoresScreen(),
+          settings: RouteSettings(
+            arguments:
+                settings.arguments, // Passa o argumento para a tela de destino
+          ),
+        );
       default:
         return MaterialPageRoute(builder: (_) => LoginPage()); // Tela padrão
     }
