@@ -5,10 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "rate_io",
-            "cwd": "rate_io",
+            "name": "rate_io (Edge)",
+            "type": "dart",
             "request": "launch",
-            "type": "dart"
+            "program": "lib/main.dart",
+            "cwd": "rate_io",
+            "deviceId": "edge"
         },
         {
             "name": "rate_io (profile mode)",
