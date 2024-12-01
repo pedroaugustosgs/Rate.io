@@ -26,6 +26,10 @@ class _HomePage extends State<HomePage> {
     await Navigator.of(context).pushNamed(Routes.avaliaRepScreen);
   }
 
+    void __fluxoDeCaixa(BuildContext context) async {
+    await Navigator.of(context).pushNamed(Routes.fluxoDeCaixaScreen);
+  }
+
   void _cadastraEvento(BuildContext context) async {
     await Navigator.of(context).pushNamed(Routes.cadastrarEventoScreen);
   }
@@ -179,7 +183,7 @@ class _HomePage extends State<HomePage> {
                         ),
                         SizedBox(height: 10),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () => __fluxoDeCaixa(context),
                           child: Text('Fluxo de Caixa'),
                         ),
                         SizedBox(height: 10),

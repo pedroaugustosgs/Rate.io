@@ -14,23 +14,27 @@ import 'cadastrarContaScreen.dart'; // Import the CadastrarContaScreen
 import 'cadastrarPagamentoScreen.dart'; // Import the CadastrarPagamentoScreen
 import 'cadastrarEventoScreen.dart';
 import 'mostraMoradoresScreen.dart';
+import 'fluxoDeCaixaScreen.dart';
 
 class Routes {
   static const String login = '/';
   static const String registerScreen = '/registerScreen';
   static const String homeScreen = '/homeScreen';
   static const String repRegisterScreen = '/repRegisterScreen';
-  static const String avaliaRepScreen = '/avaliaRepScreen'; 
-  static const String avaliaMoradorScreen = '/avaliaMoradorScreen'; 
-  static const String perfilMorador = '/perfilMorador'; 
+  static const String avaliaRepScreen = '/avaliaRepScreen';
+  static const String avaliaMoradorScreen = '/avaliaMoradorScreen';
+  static const String perfilMorador = '/perfilMorador';
   static const String editarPerfilMoradorScreen = '/editarPerfilMoradorScreen';
+
   static const String perfilUsuarioScreen = '/perfilUsuarioScreen';
   static const String PerfilrepScreen = '/perfilRepScreen'; 
   static const String CadastroContaScreen = '/cadastrarContaScreen'; 
   static const String cadastrarPagamentoScreen = '/cadastrarPagamentoScreen'; 
+
   static const String cadastrarEventoScreen = '/cadastrarEventoScreen';
   static const String buscaScreen = '/buscaScreen';
   static const String mostraMoradoresScreen = '/mostraMoradoresScreen';
+  static const String fluxoDeCaixaScreen = '/fluxoDeCaixaScreen';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -43,15 +47,15 @@ class Routes {
       case repRegisterScreen:
         return MaterialPageRoute(builder: (_) => RepRegisterPage());
       case avaliaRepScreen:
-        return MaterialPageRoute(builder: (_) => AvaliaRepScreen()); 
+        return MaterialPageRoute(builder: (_) => AvaliaRepScreen());
       case perfilMorador:
-        return MaterialPageRoute(builder: (_) => PerfilMorador()); 
+        return MaterialPageRoute(builder: (_) => PerfilMorador());
       case editarPerfilMoradorScreen:
         return MaterialPageRoute(builder: (_) => EditarPerfilMoradorScreen());  
       case PerfilrepScreen:
-        return MaterialPageRoute(builder: (_) => Perfilrepscreen()); 
+        return MaterialPageRoute(builder: (_) => Perfilrepscreen());
       case CadastroContaScreen:
-        return MaterialPageRoute(builder: (_) => CadastrarContaScreen()); 
+        return MaterialPageRoute(builder: (_) => CadastrarContaScreen());
       case cadastrarPagamentoScreen:
         return MaterialPageRoute(builder: (_) => CadastrarPagamentoScreen());
       case cadastrarEventoScreen:
@@ -66,6 +70,8 @@ class Routes {
                 settings.arguments, // Passa o argumento para a tela de destino
           ),
         );
+      case fluxoDeCaixaScreen:
+        return MaterialPageRoute(builder: (_) => FluxoDeCaixaScreen());
       case perfilUsuarioScreen:
         return MaterialPageRoute(
           builder: (_) => PerfilUsuarioScreen(morador: {},),
@@ -74,6 +80,7 @@ class Routes {
                 settings.arguments,
           ),
         );
+
       default:
         return MaterialPageRoute(builder: (_) => LoginPage()); // Tela padrão
     }

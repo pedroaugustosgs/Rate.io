@@ -4,7 +4,7 @@ import 'package:rate_io/classes/morador.dart';
 class Fracao extends Gastos {
   String? id;
   int valor;
-  Morador morador;
+  String morador;
 
   Fracao({
     this.id,
