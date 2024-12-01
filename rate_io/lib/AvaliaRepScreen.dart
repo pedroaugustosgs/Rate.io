@@ -98,7 +98,7 @@ class _AvaliaRepScreenState extends State<AvaliaRepScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Olá, ${repUsuario!.nome}"),
+                Text("${repUsuario!.nome}"),
                 SizedBox(height: 16.0),
                 _buildRatingBar('Pinga', _pinga, (value) {
                   setState(() {

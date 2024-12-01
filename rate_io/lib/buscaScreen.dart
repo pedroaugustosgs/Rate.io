@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rate_io/classes/moradorProvider.dart';
 import 'package:rate_io/perfilUsuarioScreen.dart';
+import 'package:rate_io/routes.dart';
 
 class BuscaScreen extends StatefulWidget {
   @override
@@ -12,17 +14,20 @@ Widget _navigatePerfilUsuario({required Map<String, dynamic> morador}) {
   return PerfilUsuarioScreen(morador: morador);
 }
 
+void _meuPerfil(BuildContext context) async {
+    await Navigator.of(context).pushNamed(Routes.perfilMorador);
+  }
+
 class _BuscaScreenState extends State<BuscaScreen> {
 
   List<Map<String, dynamic>> _todosResultados = [];
   List<Map<String, dynamic>> _resultadoBusca = [];
   final TextEditingController _buscaController = TextEditingController();
 
-
   @override
   void initState() {
     _buscaController.addListener(_onSearchChanged);
-    _fetchMoradores();
+    _fetchUsuarios();
     super.initState();
   }
 
@@ -31,12 +36,12 @@ class _BuscaScreenState extends State<BuscaScreen> {
     buscaResultados();
   }
 
-  Future<void> _fetchMoradores() async {
+  Future<void> _fetchUsuarios() async {
     try {
       final querySnapshot = await FirebaseFirestore.instance.collection('moradores').orderBy('nome').get();
       final results = querySnapshot.docs.map((doc) {
-        final data = doc.data() as Map<String, dynamic>;
-        data['id'] = doc.id; // Add the document ID to the data
+        final data = doc.data();
+        data['id'] = doc.id;
         return data;
       }).toList();
 
@@ -45,7 +50,7 @@ class _BuscaScreenState extends State<BuscaScreen> {
       });
       buscaResultados();
     } catch (e) {
-      print('Erro ao buscar moradores: $e');
+      print('Erro ao buscar usuários: $e');
     }
   }
 
@@ -77,6 +82,7 @@ class _BuscaScreenState extends State<BuscaScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final moradorUsuario = Provider.of<MoradorProvider>(context).morador;
     return Scaffold(
       appBar: AppBar(
         title: TextField(
@@ -98,13 +104,17 @@ class _BuscaScreenState extends State<BuscaScreen> {
                 trailing: IconButton(
                   icon: Icon(Icons.label_important_outline_sharp),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                          _navigatePerfilUsuario(morador: perfil),
-                      ),
-                    );
+                    if(_resultadoBusca[index]['id'] == moradorUsuario?.id) {
+                      _meuPerfil(context);
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                            _navigatePerfilUsuario(morador: perfil),
+                        ),
+                      );
+                    }
                   },
                 )
               );
