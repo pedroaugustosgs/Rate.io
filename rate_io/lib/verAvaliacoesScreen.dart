@@ -2,15 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class AvaliacoesScreen extends StatefulWidget {
+class VerAvaliacoesScreen extends StatefulWidget {
   final Map<String, dynamic> usuario;
-  AvaliacoesScreen({required this.usuario});
+  VerAvaliacoesScreen({required this.usuario});
 
   @override
-  _AvaliacoesScreenState createState() => _AvaliacoesScreenState();
+  _VerAvaliacoesScreenState createState() => _VerAvaliacoesScreenState();
 }
 
-class _AvaliacoesScreenState extends State<AvaliacoesScreen> {
+class _VerAvaliacoesScreenState extends State<VerAvaliacoesScreen> {
   List<Map<String, dynamic>> _avaliacoes = [];
 
   @override
