@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rate_io/avaliacoesScreen.dart';
 import 'package:rate_io/buscaScreen.dart';
 import 'package:rate_io/perfilUsuarioScreen.dart';
 import 'loginScreen.dart'; // Importar suas páginas
@@ -35,6 +36,7 @@ class Routes {
   static const String buscaScreen = '/buscaScreen';
   static const String mostraMoradoresScreen = '/mostraMoradoresScreen';
   static const String fluxoDeCaixaScreen = '/fluxoDeCaixaScreen';
+  static const String avaliacoesScreen = '/avaliacoesScreen';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -80,7 +82,14 @@ class Routes {
                 settings.arguments,
           ),
         );
-
+      case avaliacoesScreen:
+        return MaterialPageRoute(
+          builder: (_) => AvaliacoesScreen(usuario: {},),
+          settings: RouteSettings(
+            arguments:
+                settings.arguments,
+          ),
+        );
       default:
         return MaterialPageRoute(builder: (_) => LoginPage()); // Tela padrão
     }
