@@ -7,8 +7,8 @@ import 'repRegisterScreen.dart';
 import 'homeScreen.dart';
 import 'avaliaRepScreen.dart'; // Import the AvaliaRepScreen
 import 'avaliaMoradorScreen.dart'; // Import the AvaliaMoradorScreen
-import 'perfilMoradorScreen.dart'; // Import the PerfilMorador screen
-import 'editarPerfilMoradorScreen.dart'; // Import the EditarPerfilMoradorScreen
+import 'meuPerfilScreen.dart'; // Import the PerfilMorador screen
+import 'editarMeuPerfilScreen.dart'; // Import the EditarPerfilMoradorScreen
 import 'perfilRepScreen.dart'; // Import the PerfilRepScreen
 import 'cadastrarContaScreen.dart'; // Import the CadastrarContaScreen
 import 'cadastrarPagamentoScreen.dart'; // Import the CadastrarPagamentoScreen
