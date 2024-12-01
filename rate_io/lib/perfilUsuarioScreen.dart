@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rate_io/avaliacoesScreen.dart';
+import 'package:rate_io/convidarUsuarioScreen.dart';
+import 'package:rate_io/verAvaliacoesScreen.dart';
 import 'package:rate_io/classes/sexo.dart';
-import 'routes.dart';
 
 class PerfilUsuarioScreen extends StatefulWidget {
   final Map<String, dynamic> morador;
@@ -80,8 +80,7 @@ class _PerfilUsuarioState extends State<PerfilUsuarioScreen> {
                 Text('Faculdade: ${usuario['faculdade']}', style: TextStyle(fontSize: 24)),
                 Text('Data de nascimento: ${DateFormat('dd/MM/yyyy').format((usuario['dataNascimento'] as Timestamp).toDate())}', style: TextStyle(fontSize: 24)),
                 SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                Column(
                   children: [
                     ElevatedButton(
                       onPressed: () {
@@ -94,18 +93,24 @@ class _PerfilUsuarioState extends State<PerfilUsuarioScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AvaliacoesScreen(usuario: usuario),
+                            builder: (context) => VerAvaliacoesScreen(usuario: usuario),
                           ),
                         );
                       },
                       child: Text('Avaliações'),
                     ),
-                    ElevatedButton(
-                      onPressed: (){
-                        Navigator.of(context).pushNamed(Routes.editarPerfilMoradorScreen); //////MUDAR PARA A TELA DE CONVIDAR
-                      },
-                      child: Text('Convidar'),
-                    ),
+                    if(usuario['repId'] == null)
+                      ElevatedButton(
+                        onPressed: (){
+                           Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ConvidarUsuarioScreen(usuario: usuario),
+                            ),
+                          );
+                        },
+                        child: Text('Convidar'),
+                      ),
                   ],
                 ),
               ],

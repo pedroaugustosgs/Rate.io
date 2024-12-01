@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rate_io/classes/avaliaMorador.dart';
 
 //import 'rep.dart';
 import 'tarefa.dart';
@@ -16,11 +15,12 @@ class Morador{
   String curso;
   String faculdade;
   DateTime dataNascimento;
-  List<AvaliacaoMorador>? avaliacaoes;
+  List<String>? avaliacoesId;
   List<Tarefa>? tarefas;
   List<Pagamento>? pagamentos;
   List<Gastos>? gastos;
   String? repId; // rep que ele mora
+  List<String>? convitesId;
 
   Morador({
     this.id,
@@ -31,11 +31,12 @@ class Morador{
     required this.curso,
     required this.faculdade,
     required this.dataNascimento,
-    this.avaliacaoes,
+    this.avaliacoesId,
     this.tarefas,
     this.pagamentos,
     this.gastos,
-    this.repId
+    this.repId,
+    this.convitesId
   });
 
   // Serializa o Morador para um Map<String, dynamic>
@@ -49,11 +50,12 @@ class Morador{
       'curso': curso,
       'faculdade': faculdade,
       'dataNascimento': Timestamp.fromDate(dataNascimento),
-      'avaliacoes': avaliacaoes?.map((a) => a.toMap()).toList(),
+      'avaliacoesId': avaliacoesId,
       'tarefas': tarefas?.map((a) => a.toMap()).toList(),
       'pagamentos': pagamentos?.map((a) => a.toMap()).toList(),
       'gastos': gastos?.map((a) => a.toMap()).toList(),
       'repId': repId,
+      'convitesId': convitesId
     };
   }
 
@@ -68,9 +70,9 @@ class Morador{
       curso: map['curso'],
       faculdade: map['faculdade'],
       dataNascimento: (map['dataNascimento'] as Timestamp).toDate(), 
-      avaliacaoes: (map['avaliacoes'] as List<dynamic>?)
-        ?.map((a) => AvaliacaoMorador.fromMap(a as Map<String, dynamic>))
-        .toList(),
+      avaliacoesId: map['avaliacoesId'] != null
+        ? List<String>.from(map['avaliacoesId'])
+        : null,
 
       tarefas: (map['tarefas'] as List<dynamic>?)
         ?.map((a) => Tarefa.fromMap(a as Map<String, dynamic>))
@@ -84,6 +86,9 @@ class Morador{
         ?.map((a) => Gastos.fromMap(a as Map<String, dynamic>))
         .toList(),
       repId: map['repId'],
+      convitesId: map['convitesId'] != null
+        ? List<String>.from(map['convitesId'])
+        : null,
     );
   }
 }
