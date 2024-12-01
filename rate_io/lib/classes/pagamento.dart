@@ -4,13 +4,13 @@ class Pagamento {
   String? id;
   double valorPago;
   DateTime dataPagamento;
-  Morador morador;
+  String moradorID;
 
   Pagamento({
     this.id,
     required this.valorPago,
     required this.dataPagamento,
-    required this.morador,
+    required this.moradorID,
   });
 
   Map<String, dynamic> toMap() {
@@ -18,7 +18,7 @@ class Pagamento {
       'id': id,
       'valorPago': valorPago,
       'dataPagamento': dataPagamento,
-      'morador': morador
+      'moradorID': moradorID
     };
   }
 
@@ -26,6 +26,6 @@ class Pagamento {
     return Pagamento(
         valorPago: map['valorPago'],
         dataPagamento: map['dataPagamento'],
-        morador: map['morador']);
+        moradorID: map['moradorID']);
   }
 }

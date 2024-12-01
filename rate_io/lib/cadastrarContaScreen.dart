@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rate_io/classes/despesas.dart';
+import 'package:rate_io/classes/moradorProvider.dart';
 
 class CadastrarContaScreen extends StatefulWidget {
   @override
@@ -15,6 +19,7 @@ class _CadastrarContaScreenState extends State<CadastrarContaScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final morador = Provider.of<MoradorProvider>(context).morador;
     return Scaffold(
       appBar: AppBar(
         title: Text('Cadastrar Conta'),
@@ -92,11 +97,44 @@ class _CadastrarContaScreenState extends State<CadastrarContaScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        // Aqui você pode adicionar a lógica para salvar os dados
-                        Navigator.of(context).pop();
+
+                        if (morador != null && morador.id != null) {
+                          // Criar uma referência ao Firestore com ID gerado automaticamente
+                          final pagamentoRef = FirebaseFirestore.instance
+                              .collection('despesa')
+                              .doc();
+
+                          // Pegar o ID gerado pelo Firestore
+                          String generatedId = pagamentoRef.id;
+                          Despesa newDespesa = Despesa(
+                            id: generatedId,
+                            nome: _nomeConta,
+                            morador: morador.id!,
+                            valorTotal: _valor,
+                            dataVencimento: _dataVencimento,
+                            isPaga: _paga
+                          );
+                          print(newDespesa);
+                          // Salvar o objeto no Firestore
+                          pagamentoRef.set({
+                            'id': newDespesa.id,
+                            'morador': newDespesa.morador,
+                            'valorTotal': newDespesa.valorTotal,
+                            'dataVencimento': newDespesa.dataVencimento,
+                            'isPaga': newDespesa.isPaga
+                          }).then((_) {
+                            print('Despesa cadastrado com sucesso!');
+                             Navigator.of(context)
+                              .pushReplacementNamed('/fluxoDeCaixaScreen');
+                          }).catchError((error) {
+                            print('Erro ao cadastrar pagamento: $error');
+                          });
+                        } else {
+                          print('Erro: Morador ou ID do morador é nulo.');
+                        }
                       }
                     },
-                    child: Text('Cadastrar'),
+                    child: Text('Salvar'),
                   ),
                 ],
               ),

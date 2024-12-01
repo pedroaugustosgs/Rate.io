@@ -3,7 +3,7 @@ import 'package:rate_io/classes/fracao.dart';
 import 'package:rate_io/classes/morador.dart';
 
 abstract class Gastos {
-  Morador morador;
+  String morador;
 
   Gastos({required this.morador});
   // Método abstrato para mapear os gastos e despesas

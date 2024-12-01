@@ -5,16 +5,18 @@ import 'package:rate_io/classes/morador.dart';
 
 class Despesa extends Gastos {
   String? id;
-  int nome;
+  String nome;
   double valorTotal;
   DateTime dataVencimento;
+  bool isPaga;
 
   Despesa({
     required this.id,
     required this.nome,
     required this.valorTotal,
     required this.dataVencimento,
-    required Morador morador,
+    required String morador,
+    required  this.isPaga,
   }) : super(morador: morador);
   // Serializa a Despesa para um Map<String, dynamic>
   Map<String, dynamic> toMap() {
@@ -25,6 +27,7 @@ class Despesa extends Gastos {
       'dataVencimento': dataVencimento
           .toIso8601String(), // Converte DateTime para String ISO 8601
       'morador': morador,
+      'isPaga': isPaga
     };
   }
 
@@ -36,7 +39,9 @@ class Despesa extends Gastos {
       valorTotal: map['valorTotal'],
       dataVencimento: DateTime.parse(map[
           'dataVencimento']), // Converte String ISO 8601 de volta para DateTime
-      morador: Morador.fromMap(map['morador']), // Certifique-se de que Morador tem o método fromMap()
+      morador:
+          map['morador'], // Certifique-se de que Morador tem o método fromMap()
+          isPaga: map['isPaga']
     );
   }
 }
