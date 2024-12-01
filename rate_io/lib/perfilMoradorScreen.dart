@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'classes/morador.dart';
 import 'routes.dart';
 
 class PerfilMorador extends StatefulWidget {

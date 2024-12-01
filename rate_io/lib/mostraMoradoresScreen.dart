@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rate_io/classes/morador.dart';
 import 'classes/rep.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'avaliaMoradorScreen.dart';
 import 'classes/repProvider.dart';
-import 'routes.dart';
 
 Widget _navigateAvaliaMorador({required Map<String, dynamic> morador}) {
   return AvaliaMoradorScreen(morador: morador);

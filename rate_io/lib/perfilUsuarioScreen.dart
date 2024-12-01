@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rate_io/classes/morador.dart';
 import 'package:rate_io/classes/sexo.dart';
-//import 'classes/morador.dart';
 import 'routes.dart';
 
 class PerfilUsuarioScreen extends StatefulWidget {
