@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'classes/morador.dart';
 import 'routes.dart';
 
-class Perfiloutromoradorscreen extends StatefulWidget {
+class PerfilMorador extends StatefulWidget {
   
 
-  
+  PerfilMorador();
 
   @override
   _PerfilMoradorState createState() => _PerfilMoradorState();
 }
 
-class _PerfilMoradorState extends State<Perfiloutromoradorscreen> {
+class _PerfilMoradorState extends State<PerfilMorador> {
   late TextEditingController _telefoneController;
   late TextEditingController _cursoController;
   late TextEditingController _faculdadeController;
@@ -57,6 +56,7 @@ class _PerfilMoradorState extends State<Perfiloutromoradorscreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Nome: ', style: TextStyle(fontSize: 24)),
+            Text('Email: ', style: TextStyle(fontSize: 24)),
             Text('Sexo: ', style: TextStyle(fontSize: 24)),
             Text('Rep: ', style: TextStyle(fontSize: 24)),
             Text('Telefone: ', style: TextStyle(fontSize: 24)),
@@ -81,9 +81,9 @@ class _PerfilMoradorState extends State<Perfiloutromoradorscreen> {
                 ),
                 ElevatedButton(
                   onPressed: (){
-                    Navigator.of(context).pushNamed(Routes.editarPerfilMoradorScreen); //////MUDAR PARA A TELA DE CONVIDAR
+                    Navigator.of(context).pushNamed(Routes.editarPerfilMoradorScreen);
                   },
-                  child: Text('Convidar'),
+                  child: Text('Editar'),
                 ),
               ],
             ),

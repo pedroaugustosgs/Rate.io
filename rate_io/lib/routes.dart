@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:rate_io/buscaScreen.dart';
-import 'package:rate_io/perfilOUTROMoradorScreen.dart';
+import 'package:rate_io/perfilUsuarioScreen.dart';
 import 'loginScreen.dart'; // Importar suas páginas
 import 'registerScreen.dart';
 import 'repRegisterScreen.dart';
 import 'homeScreen.dart';
 import 'avaliaRepScreen.dart'; // Import the AvaliaRepScreen
 import 'avaliaMoradorScreen.dart'; // Import the AvaliaMoradorScreen
-import 'perfilMoradorScreen.dart'; // Import the PerfilMorador screen
-import 'editarPerfilMoradorScreen.dart'; // Import the EditarPerfilMoradorScreen
-import 'perfilOUTROMoradorScreen.dart'; // Import the PerfilOUTROMoradorScreen
+import 'meuPerfilScreen.dart'; // Import the PerfilMorador screen
+import 'editarMeuPerfilScreen.dart'; // Import the EditarPerfilMoradorScreen
 import 'perfilRepScreen.dart'; // Import the PerfilRepScreen
 import 'cadastrarContaScreen.dart'; // Import the CadastrarContaScreen
 import 'cadastrarPagamentoScreen.dart'; // Import the CadastrarPagamentoScreen
@@ -26,10 +25,12 @@ class Routes {
   static const String avaliaMoradorScreen = '/avaliaMoradorScreen';
   static const String perfilMorador = '/perfilMorador';
   static const String editarPerfilMoradorScreen = '/editarPerfilMoradorScreen';
-  static const String perfilOUTROMoradorScreen = '/perfilOUTROmoradorScreen';
-  static const String PerfilrepScreen = '/perfilRepScreen';
-  static const String CadastroContaScreen = '/cadastrarContaScreen';
-  static const String cadastrarPagamentoScreen = '/cadastrarPagamentoScreen';
+
+  static const String perfilUsuarioScreen = '/perfilUsuarioScreen';
+  static const String PerfilrepScreen = '/perfilRepScreen'; 
+  static const String CadastroContaScreen = '/cadastrarContaScreen'; 
+  static const String cadastrarPagamentoScreen = '/cadastrarPagamentoScreen'; 
+
   static const String cadastrarEventoScreen = '/cadastrarEventoScreen';
   static const String buscaScreen = '/buscaScreen';
   static const String mostraMoradoresScreen = '/mostraMoradoresScreen';
@@ -50,9 +51,7 @@ class Routes {
       case perfilMorador:
         return MaterialPageRoute(builder: (_) => PerfilMorador());
       case editarPerfilMoradorScreen:
-        return MaterialPageRoute(builder: (_) => EditarPerfilMoradorScreen());
-      case perfilOUTROMoradorScreen:
-        return MaterialPageRoute(builder: (_) => Perfiloutromoradorscreen());
+        return MaterialPageRoute(builder: (_) => EditarPerfilMoradorScreen());  
       case PerfilrepScreen:
         return MaterialPageRoute(builder: (_) => Perfilrepscreen());
       case CadastroContaScreen:
@@ -73,6 +72,15 @@ class Routes {
         );
       case fluxoDeCaixaScreen:
         return MaterialPageRoute(builder: (_) => FluxoDeCaixaScreen());
+      case perfilUsuarioScreen:
+        return MaterialPageRoute(
+          builder: (_) => PerfilUsuarioScreen(morador: {},),
+          settings: RouteSettings(
+            arguments:
+                settings.arguments,
+          ),
+        );
+
       default:
         return MaterialPageRoute(builder: (_) => LoginPage()); // Tela padrão
     }

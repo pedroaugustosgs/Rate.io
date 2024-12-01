@@ -201,7 +201,7 @@ class _HomePage extends State<HomePage> {
                           onPressed: () {
                             if (repUsuario != null) {
                               _listarMoradores(context,
-                                  repUsuario!); // `repUsuario` é passado aqui
+                                  repUsuario); // `repUsuario` é passado aqui
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

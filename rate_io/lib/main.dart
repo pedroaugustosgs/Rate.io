@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart'; // Para widgets do Flutter
 import 'package:firebase_core/firebase_core.dart'; // Para inicializar o Firebase
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_io/classes/moradorProvider.dart';
 import 'package:rate_io/classes/repProvider.dart';
