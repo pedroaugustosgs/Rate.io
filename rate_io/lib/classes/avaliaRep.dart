@@ -14,7 +14,7 @@ class AvaliaRep extends Avaliacao {
       {this.id,
       required double estrela,
       String? comentario,
-      required this.pinga, // Inicializando o atributo local
+      required this.pinga,
       required this.sossego,
       required this.limpeza,
       required this.resenha,
@@ -38,8 +38,8 @@ class AvaliaRep extends Avaliacao {
       'limpeza': limpeza,
       'resenha': resenha,
       'custo': custo,
-      'repID': repId,
-      'autorID':autorId,
+      'repId': repId,
+      'autorId':autorId,
     };
   }
 
@@ -55,7 +55,7 @@ class AvaliaRep extends Avaliacao {
       resenha: map['resenha'],
       custo: map['custo'],
       repId: map['repId'],
-      autorId: map['autorID']
+      autorId: map['autorId']
     );
   }
 }

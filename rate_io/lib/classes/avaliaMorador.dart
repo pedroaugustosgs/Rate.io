@@ -6,21 +6,23 @@ class AvaliacaoMorador extends Avaliacao {
   double convivencia;
   double festivo;
   double responsavel;
+  String moradorId;
+  String autorId;
 
-  // Corrigido para inicialização correta no construtor
-  double estrelaInput;
-  String? comentario;
+
 
   AvaliacaoMorador({
-    required this.id,
+    this.id,
+    required double estrela,
+    String? comentario,
     required this.organizacao,
     required this.convivencia,
     required this.festivo,
     required this.responsavel,
-    required this.estrelaInput, // Inicializa aqui
-    this.comentario, 
-  }) : super(
-          estrela: estrelaInput,
+    required this.autorId,
+    required this.moradorId}) 
+    : super(
+          estrela: estrela,
           comentario: comentario,
         );
 
@@ -33,7 +35,9 @@ class AvaliacaoMorador extends Avaliacao {
       'convivencia': convivencia,
       'festivo': festivo,
       'responsavel': responsavel,
-      'estrela': estrelaInput,
+      'moradorId' : moradorId,
+      'autorId': autorId,
+      'estrela': estrela,
       'comentario': comentario,
     };
   }
@@ -46,7 +50,9 @@ class AvaliacaoMorador extends Avaliacao {
       convivencia: map['convivencia'],
       festivo: map['festivo'],
       responsavel: map['responsavel'],
-      estrelaInput: map['estrela'],
+      autorId: map['autorId'],
+      moradorId: map['moradorId'],
+      estrela: map['estrela'],
       comentario: map['comentario'],
     );
   }

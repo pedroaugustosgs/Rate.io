@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 import 'package:rate_io/classes/avaliaMorador.dart';
+import 'package:rate_io/classes/morador.dart';
+import 'package:rate_io/classes/moradorProvider.dart';
 
 class AvaliaMoradorScreen extends StatefulWidget {
   final Map<String, dynamic> morador;
@@ -12,19 +16,81 @@ class AvaliaMoradorScreen extends StatefulWidget {
 }
 
 class _AvaliaMoradorScreenState extends State<AvaliaMoradorScreen> {
+  final TextEditingController _comentarioController = TextEditingController();
+  String errorMessage = '';
+
+
   final _formKey = GlobalKey<FormState>();
   String? _id;
+  String nomeUsuarioAvaliado = '';
   double _organizacao = 0;
   double _convivencia = 0;
   double _festivo = 0;
   double _responsavel = 0;
-  double _estrelaInput = 0;
-  String _comentarioInput = '';
 
   @override
   void initState() {
     super.initState();
     _id = widget.morador['id'];
+    _fetchNomeUsuarioAvaliado();
+  }
+
+  void _fetchNomeUsuarioAvaliado() async {
+    final usuarioAvaliadoDoc = await FirebaseFirestore.instance.collection('moradores').doc(_id).get();
+    if (usuarioAvaliadoDoc.exists && usuarioAvaliadoDoc.data() != null) {
+      setState(() {
+        nomeUsuarioAvaliado = usuarioAvaliadoDoc.data()!['nome'];
+      });
+    }
+  }
+
+  void _registerNewAvaliacao() async {
+    setState(() {
+      errorMessage = '';
+    });
+
+    Morador? moradorUsuario = Provider.of<MoradorProvider>(context, listen: false).morador;
+
+    if (moradorUsuario == null) {
+      setState(() {
+        errorMessage = 'Usuário não identificado. Por favor, faça login novamente.';
+      });
+      return;
+    }
+
+    AvaliacaoMorador newAvaliacao = AvaliacaoMorador(
+      organizacao: _organizacao,
+      convivencia: _convivencia,
+      festivo: _festivo,
+      responsavel: _responsavel,
+      autorId: moradorUsuario.id!,
+      moradorId: _id!,
+      estrela: (_organizacao + _convivencia + _festivo + _responsavel)/4.0,
+      comentario: _comentarioController.text
+    );
+
+    try {
+      CollectionReference avaliacaoCollection =
+        FirebaseFirestore.instance.collection('avaliacoesMoradores');
+      
+      String generatedAvaliacaoId = avaliacaoCollection.doc().id;
+      newAvaliacao.id = generatedAvaliacaoId;
+
+      await avaliacaoCollection
+          .doc(generatedAvaliacaoId)
+          .set(newAvaliacao.toMap());
+
+      await FirebaseFirestore.instance
+        .collection('moradores')
+        .doc(_id)
+        .update({
+          'avaliacoesId': FieldValue.arrayUnion([newAvaliacao.id!])
+        });
+
+      Navigator.of(context).pushReplacementNamed('/mostraMoradoresScreen');
+    } catch (e) {
+      print("Erro ao salvar avaliação: $e");
+    }
   }
   
   Widget build(BuildContext context) {
@@ -39,6 +105,14 @@ class _AvaliaMoradorScreenState extends State<AvaliaMoradorScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Text(
+                "${nomeUsuarioAvaliado}",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF497A9D),
+                ),
+              ),
               SizedBox(height: 16.0),
               _buildRatingBar('Organização', _organizacao, (value) {
                 setState(() {
@@ -60,17 +134,13 @@ class _AvaliaMoradorScreenState extends State<AvaliaMoradorScreen> {
                   _responsavel = value;
                 });
               }),
-              _buildRatingBar('Estrelas', _estrelaInput, (value) {
-                setState(() {
-                  _estrelaInput = value;
-                });
-              }),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Comentário'),
-                onSaved: (value) {
-                  _comentarioInput = value!;
-                },
-              ),
+                  controller: _comentarioController,
+                  decoration: InputDecoration(labelText: 'Comentário'),
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(280),
+                  ],
+                ),
               SizedBox(height: 16.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,32 +155,7 @@ class _AvaliaMoradorScreenState extends State<AvaliaMoradorScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        // Enviar os dados para o backend ou processar de alguma forma
-                        AvaliacaoMorador newAvaliacao = AvaliacaoMorador(
-                            id: _id,
-                            organizacao: _organizacao,
-                            convivencia: _convivencia,
-                            festivo: _festivo,
-                            responsavel: _responsavel,
-                            estrelaInput: 0);
-                        print(newAvaliacao);
-                        FirebaseFirestore.instance.collection('moradores');
-                        try {
-                          // Obtenha o ID do usuário
-                          _id;
-                          CollectionReference usersCollection =
-                              FirebaseFirestore.instance
-                                  .collection('avaliacoesMoradores');
-
-                          // Adicione o usuário na coleção do Firestore
-                          usersCollection.doc().set(newAvaliacao
-                              .toMap()); // Salve os dados do usuário
-                          Navigator.of(context)
-                              .pushReplacementNamed('/mostraMoradoresScreen');
-                        } catch (e) {
-                          print("Erro ao salvar avaliacao: $e");
-                          // Você pode querer lidar com erros aqui
-                        }
+                        _registerNewAvaliacao();
                       }
                     },
                     child: Text('Enviar'),
