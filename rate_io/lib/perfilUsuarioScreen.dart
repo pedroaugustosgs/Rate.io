@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:rate_io/avaliacoesScreen.dart';
 import 'package:rate_io/classes/sexo.dart';
 import 'routes.dart';
 
@@ -90,7 +91,12 @@ class _PerfilUsuarioState extends State<PerfilUsuarioScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        // Navegar para a tela de avaliações
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AvaliacoesScreen(usuario: usuario),
+                          ),
+                        );
                       },
                       child: Text('Avaliações'),
                     ),
