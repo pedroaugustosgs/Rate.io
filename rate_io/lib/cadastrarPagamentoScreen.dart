@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rate_io/classes/moradorProvider.dart';
+import 'package:rate_io/classes/pagamento.dart';
 
 class CadastrarPagamentoScreen extends StatefulWidget {
   @override
-  _CadastrarPagamentoScreenState createState() => _CadastrarPagamentoScreenState();
+  _CadastrarPagamentoScreenState createState() =>
+      _CadastrarPagamentoScreenState();
 }
 
 class _CadastrarPagamentoScreenState extends State<CadastrarPagamentoScreen> {
@@ -10,17 +15,12 @@ class _CadastrarPagamentoScreenState extends State<CadastrarPagamentoScreen> {
   String? _descricao;
   double? _valor;
   DateTime? _dataPagamento;
-
-  void _salvarPagamento() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      // Função para salvar os dados do pagamento
-      // Adicione aqui a lógica para salvar os dados
-    }
-  }
+  String? _id;
 
   @override
   Widget build(BuildContext context) {
+    final morador = Provider.of<MoradorProvider>(context).morador;
+    print(morador);
     return Scaffold(
       appBar: AppBar(
         title: Text('Cadastrar Pagamento'),
@@ -87,7 +87,45 @@ class _CadastrarPagamentoScreenState extends State<CadastrarPagamentoScreen> {
                     child: Text('Voltar'),
                   ),
                   ElevatedButton(
-                    onPressed: _salvarPagamento,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+
+                        if (morador != null && morador.id != null) {
+                          // Criar uma referência ao Firestore com ID gerado automaticamente
+                          final pagamentoRef = FirebaseFirestore.instance
+                              .collection('pagamento')
+                              .doc();
+
+                          // Pegar o ID gerado pelo Firestore
+                          String generatedId = pagamentoRef.id;
+
+                          // Criar um novo objeto Pagamento com o ID atribuído
+                          Pagamento newPagamento = Pagamento(
+                            id: generatedId,
+                            moradorID: morador.id!,
+                            valorPago: _valor!,
+                            dataPagamento: _dataPagamento!,
+                          );
+                          print(newPagamento);
+                          // Salvar o objeto no Firestore
+                          pagamentoRef.set({
+                            'id': newPagamento.id,
+                            'moradorID': newPagamento.moradorID,
+                            'valorPago': newPagamento.valorPago,
+                            'dataPagamento': newPagamento.dataPagamento,
+                          }).then((_) {
+                            print('Pagamento cadastrado com sucesso!');
+                            Navigator.of(context)
+                                .pushReplacementNamed('/fluxoDeCaixaScreen');
+                          }).catchError((error) {
+                            print('Erro ao cadastrar pagamento: $error');
+                          });
+                        } else {
+                          print('Erro: Morador ou ID do morador é nulo.');
+                        }
+                      }
+                    },
                     child: Text('Salvar'),
                   ),
                 ],

@@ -2,10 +2,10 @@ import 'package:rate_io/classes/avaliacao.dart';
 
 class AvaliacaoMorador extends Avaliacao {
   String? id;
-  int organizacao;
-  int convivencia;
-  int festivo;
-  int responsavel;
+  double organizacao;
+  double convivencia;
+  double festivo;
+  double responsavel;
 
   // Corrigido para inicialização correta no construtor
   double estrelaInput;
