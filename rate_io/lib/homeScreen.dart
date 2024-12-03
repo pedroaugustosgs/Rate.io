@@ -194,7 +194,7 @@ class _HomePage extends State<HomePage> {
                         SizedBox(height: 10),
                         ElevatedButton(
                           onPressed: () => _cadastraEvento(context),
-                          child: Text('Cadastrar Evento (teste)'),
+                          child: Text('Cadastrar Evento'),
                         ),
                         SizedBox(height: 10),
                         ElevatedButton(

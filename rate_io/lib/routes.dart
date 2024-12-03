@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rate_io/convidarUsuarioScreen.dart';
+import 'package:rate_io/verAvaliacoesScreen.dart';
 import 'package:rate_io/buscaScreen.dart';
 import 'package:rate_io/perfilUsuarioScreen.dart';
 import 'loginScreen.dart'; // Importar suas páginas
@@ -35,6 +37,8 @@ class Routes {
   static const String buscaScreen = '/buscaScreen';
   static const String mostraMoradoresScreen = '/mostraMoradoresScreen';
   static const String fluxoDeCaixaScreen = '/fluxoDeCaixaScreen';
+  static const String verAvaliacoesScreen = '/verAvaliacoesScreen';
+  static const String convidarUsuarioScreen = '/convidarUsuarioScreen';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -73,14 +77,13 @@ class Routes {
       case fluxoDeCaixaScreen:
         return MaterialPageRoute(builder: (_) => FluxoDeCaixaScreen());
       case perfilUsuarioScreen:
-        return MaterialPageRoute(
-          builder: (_) => PerfilUsuarioScreen(morador: {},),
-          settings: RouteSettings(
-            arguments:
-                settings.arguments,
-          ),
-        );
-
+        return MaterialPageRoute(builder: (_) => PerfilUsuarioScreen(morador: {},));
+      case verAvaliacoesScreen:
+        return MaterialPageRoute(builder: (_) => VerAvaliacoesScreen(usuario: {},));
+      case avaliaMoradorScreen:
+        return MaterialPageRoute(builder: (_) => AvaliaMoradorScreen(morador: {}));
+      case convidarUsuarioScreen:
+        return MaterialPageRoute(builder: (_) => ConvidarUsuarioScreen(usuario: {}));
       default:
         return MaterialPageRoute(builder: (_) => LoginPage()); // Tela padrão
     }
