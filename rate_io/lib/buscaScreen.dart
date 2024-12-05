@@ -150,8 +150,10 @@ class _BuscaScreenState extends State<BuscaScreen> {
                   icon: Icon(Icons.label_important_outline_sharp),
                   onPressed: () {
                     if(_resultadoBusca[index]['id'] == moradorUsuario?.id) {
+                      _anteriorIndex = -1;
                       _meuPerfil(context);
                     } else {
+                      _anteriorIndex = -1;
                       Navigator.push(
                         context,
                         MaterialPageRoute(

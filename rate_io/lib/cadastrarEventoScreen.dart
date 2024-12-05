@@ -175,7 +175,7 @@ class _CadastrarEventoScreenState extends State<CadastrarEventoScreen> {
                   LengthLimitingTextInputFormatter(280),
                 ],
               ),
-              SizedBox(height: 16),
+              Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
