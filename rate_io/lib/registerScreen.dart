@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:rate_io/classes/sexo.dart';
 import 'routes.dart'; // Importa o arquivo de rotas
@@ -134,18 +135,26 @@ if (_passwordController.text.length < 6) {
       // Obtenha o ID do usuário
       String userId = userCredential.user!.uid;
       newUser.id = userId;
+  
+      // Obter o token do dispositivo
+  
+      
+
       CollectionReference usersCollection =
           FirebaseFirestore.instance.collection('moradores');
-
+      
       // Adicione o usuário na coleção do Firestore
       await usersCollection
           .doc(userId)
           .set(newUser.toMap()); // Salve os dados do usuário
+
+      
       Navigator.of(context).pushReplacementNamed('/');
     } catch (e) {
       print("Erro ao salvar usuário: $e");
       // Você pode querer lidar com erros aqui
     }
+    
   }
 
   @override
@@ -159,10 +168,10 @@ if (_passwordController.text.length < 6) {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(height: 50),
+                  //SizedBox(height: 30),
                   SelectionContainer.disabled(
                     child: Transform.translate(
-                      offset: Offset(0, -100),
+                      offset: Offset(0, 0),
                       child: Text(
                         'rate.io',
                         style: TextStyle(

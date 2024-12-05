@@ -19,7 +19,8 @@ void _meuPerfil(BuildContext context) async {
   }
 
 class _BuscaScreenState extends State<BuscaScreen> {
-
+  int _currentIndex = 0;
+  int _anteriorIndex = 1;
   List<Map<String, dynamic>> _todosResultados = [];
   List<Map<String, dynamic>> _resultadoBusca = [];
   final TextEditingController _buscaController = TextEditingController();
@@ -84,6 +85,50 @@ class _BuscaScreenState extends State<BuscaScreen> {
   Widget build(BuildContext context) {
     final moradorUsuario = Provider.of<MoradorProvider>(context).morador;
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          if (_currentIndex == index && _anteriorIndex == index) {
+            return; // Se o botão clicado for igual ao referente à tela atual, nada acontece
+          }
+          setState(() {
+            _anteriorIndex = _currentIndex;
+            _currentIndex = index;
+          });
+          if (index == 0) {
+            Navigator.pushNamed(
+              context,
+              Routes.buscaScreen,
+              arguments: moradorUsuario,
+            );
+          } else if (index == 1) {
+            Navigator.pushNamed(
+              context,
+              Routes.homeScreen,
+            );
+          } else if (index == 2) {
+            Navigator.pushNamed(
+              context,
+              Routes.perfilMorador,
+              arguments: moradorUsuario,
+            );
+          }
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: '',
+          ),
+        ],
+      ),
       appBar: AppBar(
         title: TextField(
           controller: _buscaController,

@@ -16,6 +16,7 @@ dependencies:
   firebase_auth: ^5.3.1
   cloud_firestore: ^5.4.4
   flutter_rating_bar: ^4.0.0
+  firebase_messaging: ^15.0.0
   google_fonts: 6.2.1  # Adicione a dependência do google_fonts
   intl: ^0.17.0 # Verifique se há uma versão mais recente
   flutter_masked_text2: 0.9.1
