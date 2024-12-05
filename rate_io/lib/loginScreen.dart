@@ -134,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-
+            Spacer(),
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
               child: ElevatedButton(
@@ -152,14 +152,6 @@ class _LoginPageState extends State<LoginPage> {
                 errorMessage,
                 style: TextStyle(color: Colors.red),
               ),
-            Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                
-                Navigator.of(context).pushNamed(Routes.cadastrarPagamentoScreen);
-              },
-              child: Text('Teste'),
-            ), // Botão de teste
           ],
         ),
       ),

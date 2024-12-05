@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
             style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
                 textStyle: TextStyle(fontSize: screenWidth * 0.06), // Responsivo
-                minimumSize: Size(screenWidth * 0.4, screenHeight * 0.05), // Botão
+                minimumSize: Size(screenWidth * 0.4, screenHeight * 0.04), // Botão
                 foregroundColor: Color(0xFF497A9D))),
         inputDecorationTheme: InputDecorationTheme(
           labelStyle: TextStyle(
