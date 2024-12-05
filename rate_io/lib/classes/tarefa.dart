@@ -1,42 +1,39 @@
-import 'package:rate_io/classes/morador.dart';
-
 class Tarefa {
   String? id;
+  String nome;
   DateTime data;
   int prioridade;
   String descricao;
-  List <Morador> moradores;
+  List <String> moradoresId;
 
   Tarefa({
     this.id,
+    required this.nome,
     required this.data,
     required this.prioridade,
     required this.descricao,
-    required this.moradores
+    required this.moradoresId
   });
 
-// Essas duas funções — toMap() e fromMap() — são responsáveis por serializar e 
-// desserializar os dados da sua classe Tarefa em Dart. Elas permitem converter a classe em um 
-// formato que pode ser facilmente manipulado, armazenado ou transferido (por exemplo, para o Firebase, 
-// um arquivo JSON, etc.), e também reconverter os dados armazenados em uma instância da classe Tarefa.
   Map<String, dynamic> toMap() {
     return {
       'id':id,
+      'nome':nome,
       'data': data,
       'prioridade': prioridade,
       'descricao': descricao,
-      'moradores': moradores
+      'moradoresId': moradoresId
     };
   }
 
-  // Converte de Map para instância de Tarefa
   factory Tarefa.fromMap(Map<String, dynamic> map) {
     return Tarefa(
       id: map['id'],
+      nome: map['nome'],
       data: map['data'],
       prioridade: map['prioridade'],
       descricao: map['descricao'],
-      moradores: map['moradores']
+      moradoresId: map['moradores']
     );
   }
 }
