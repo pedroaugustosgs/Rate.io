@@ -13,10 +13,10 @@ class BuscaScreen extends StatefulWidget {
 Widget _navigatePerfilUsuario({required Map<String, dynamic> morador}) {
   return PerfilUsuarioScreen(morador: morador);
 }
-
+/*
 void _meuPerfil(BuildContext context) async {
     await Navigator.of(context).pushNamed(Routes.perfilMorador);
-  }
+  }*/
 
 class _BuscaScreenState extends State<BuscaScreen> {
   int _currentIndex = 0;
@@ -107,10 +107,11 @@ class _BuscaScreenState extends State<BuscaScreen> {
               Routes.homeScreen,
             );
           } else if (index == 2) {
-            Navigator.pushNamed(
+            Navigator.push( 
               context,
-              Routes.perfilMorador,
-              arguments: moradorUsuario,
+              MaterialPageRoute(
+                builder: (context) => _navigatePerfilUsuario(morador: moradorUsuario!.toMap()),
+              ),
             );
           }
         },
@@ -149,9 +150,9 @@ class _BuscaScreenState extends State<BuscaScreen> {
                 trailing: IconButton(
                   icon: Icon(Icons.label_important_outline_sharp),
                   onPressed: () {
-                    if(_resultadoBusca[index]['id'] == moradorUsuario?.id) {
-                      _meuPerfil(context);
-                    } else {
+                    //if(_resultadoBusca[index]['id'] == moradorUsuario?.id) {
+                      //_meuPerfil(context);
+                    //} else {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -159,7 +160,7 @@ class _BuscaScreenState extends State<BuscaScreen> {
                             _navigatePerfilUsuario(morador: perfil),
                         ),
                       );
-                    }
+                    //}
                   },
                 )
               );

@@ -3,17 +3,16 @@ import 'package:rate_io/convidarUsuarioScreen.dart';
 import 'package:rate_io/verAvaliacoesScreen.dart';
 import 'package:rate_io/buscaScreen.dart';
 import 'package:rate_io/perfilUsuarioScreen.dart';
-import 'loginScreen.dart'; // Importar suas páginas
+import 'loginScreen.dart';
 import 'registerScreen.dart';
 import 'repRegisterScreen.dart';
 import 'homeScreen.dart';
-import 'avaliaRepScreen.dart'; // Import the AvaliaRepScreen
-import 'avaliaMoradorScreen.dart'; // Import the AvaliaMoradorScreen
-import 'meuPerfilScreen.dart'; // Import the PerfilMorador screen
-import 'editarMeuPerfilScreen.dart'; // Import the EditarPerfilMoradorScreen
-import 'perfilRepScreen.dart'; // Import the PerfilRepScreen
-import 'cadastrarContaScreen.dart'; // Import the CadastrarContaScreen
-import 'cadastrarPagamentoScreen.dart'; // Import the CadastrarPagamentoScreen
+import 'avaliaRepScreen.dart';
+import 'avaliaMoradorScreen.dart'; 
+import 'editarMeuPerfilScreen.dart'; 
+import 'perfilRepScreen.dart';
+import 'cadastrarContaScreen.dart'; 
+import 'cadastrarPagamentoScreen.dart'; 
 import 'cadastrarEventoScreen.dart';
 import 'mostraMoradoresScreen.dart';
 import 'fluxoDeCaixaScreen.dart';
@@ -52,8 +51,6 @@ class Routes {
         return MaterialPageRoute(builder: (_) => RepRegisterPage());
       case avaliaRepScreen:
         return MaterialPageRoute(builder: (_) => AvaliaRepScreen());
-      case perfilMorador:
-        return MaterialPageRoute(builder: (_) => PerfilMorador());
       case editarPerfilMoradorScreen:
         return MaterialPageRoute(builder: (_) => EditarPerfilMoradorScreen());  
       case PerfilrepScreen:
@@ -71,7 +68,7 @@ class Routes {
           builder: (_) => MostraMoradoresScreen(),
           settings: RouteSettings(
             arguments:
-                settings.arguments, // Passa o argumento para a tela de destino
+                settings.arguments,
           ),
         );
       case fluxoDeCaixaScreen:
