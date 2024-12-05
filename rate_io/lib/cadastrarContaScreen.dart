@@ -83,16 +83,9 @@ class _CadastrarContaScreenState extends State<CadastrarContaScreen> {
                   });
                 },
               ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Voltar'),
-                  ),
+              Spacer(),
+              
+                
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -136,8 +129,8 @@ class _CadastrarContaScreenState extends State<CadastrarContaScreen> {
                     },
                     child: Text('Salvar'),
                   ),
-                ],
-              ),
+                
+              
             ],
           ),
         ),

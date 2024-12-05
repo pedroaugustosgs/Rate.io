@@ -76,16 +76,8 @@ class _CadastrarPagamentoScreenState extends State<CadastrarPagamentoScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text('Voltar'),
-                  ),
+              Spacer(),
+              
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -127,8 +119,7 @@ class _CadastrarPagamentoScreenState extends State<CadastrarPagamentoScreen> {
                       }
                     },
                     child: Text('Salvar'),
-                  ),
-                ],
+                  
               ),
             ],
           ),
