@@ -186,31 +186,44 @@ class _HomePage extends State<HomePage> {
                         ),
                         SizedBox(height: 30),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _anteriorIndex = -1;
+                          },
                           child: Text('Dívida'),
                         ),
                         SizedBox(height: 10),
                         ElevatedButton(
-                          onPressed: () => __fluxoDeCaixa(context),
+                          onPressed: () {
+                            _anteriorIndex = -1;
+                            __fluxoDeCaixa(context);
+                          },
                           child: Text('Fluxo de Caixa'),
                         ),
                         SizedBox(height: 10),
                         ElevatedButton(
-                          onPressed: () => _avaliaRep(context),
+                          onPressed: () {
+                            _anteriorIndex = -1;
+                            _avaliaRep(context);
+                          },
                           child: Text('Avaliar Rep'),
                         ),
                         SizedBox(height: 10),
                         ElevatedButton(
-                          onPressed: () => _cadastraEvento(context),
+                          onPressed: () {
+                            _anteriorIndex = -1;
+                            _cadastraEvento(context);
+                          },
                           child: Text('Cadastrar Evento'),
                         ),
                         SizedBox(height: 10),
                         ElevatedButton(
                           onPressed: () {
                             if (repUsuario != null) {
+                              _anteriorIndex = -1;
                               _listarMoradores(context,
                                   repUsuario); // `repUsuario` é passado aqui
                             } else {
+                              _anteriorIndex = -1;
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                     content:
@@ -232,11 +245,15 @@ class _HomePage extends State<HomePage> {
                 children: [
                   Text(
                       "Opa, ${moradorUsuario.nome}, parece que você não está cadastrado numa rep."),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () => _registerRep(context),
+                    onPressed: () {
+                      _anteriorIndex = -1;
+                      _registerRep(context);
+                    },
                     child: Text('Criar uma República'),
                   ),
+                  
                 ],
               ),
             ),

@@ -96,7 +96,6 @@ class _AvaliaRepScreenState extends State<AvaliaRepScreen> {
         child: Stack(
           children: <Widget>[
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "${repUsuario!.nome}",
@@ -139,16 +138,7 @@ class _AvaliaRepScreenState extends State<AvaliaRepScreen> {
                     LengthLimitingTextInputFormatter(280),
                   ],
                 ),
-                SizedBox(height: 16.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text('Voltar'),
-                    ),
+                Spacer(),
                     ElevatedButton(
                       onPressed: () {
                           _registerNewAvaliacao();
@@ -156,8 +146,6 @@ class _AvaliaRepScreenState extends State<AvaliaRepScreen> {
                       child: Text('Enviar'),
                     ),
                   ],
-                ),
-              ],
             ),
           ],
         ),
