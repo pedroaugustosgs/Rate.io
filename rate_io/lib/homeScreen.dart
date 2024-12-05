@@ -18,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> {
   int _currentIndex = 1;
+  int _anteriorIndex = 0;
   void _registerRep(BuildContext context) async {
     await Navigator.of(context).pushNamed(Routes.repRegisterScreen);
   }
@@ -89,10 +90,11 @@ class _HomePage extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
-          if (_currentIndex == index) {
+          if (_currentIndex == index && _anteriorIndex == index) {
             return; // Se o botão clicado for igual ao referente à tela atual, nada acontece
           }
           setState(() {
+            _anteriorIndex = _currentIndex;
             _currentIndex = index;
           });
           if (index == 0) {

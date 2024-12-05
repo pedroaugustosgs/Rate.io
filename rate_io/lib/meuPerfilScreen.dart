@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rate_io/classes/moradorProvider.dart';
+import 'package:rate_io/classes/repProvider.dart';
 import 'routes.dart';
 
 class PerfilMorador extends StatefulWidget {
@@ -11,6 +14,8 @@ class PerfilMorador extends StatefulWidget {
 }
 
 class _PerfilMoradorState extends State<PerfilMorador> {
+  int _currentIndex = 2;
+  int _anteriorIndex = 0;
   late TextEditingController _telefoneController;
   late TextEditingController _cursoController;
   late TextEditingController _faculdadeController;
@@ -46,7 +51,54 @@ class _PerfilMoradorState extends State<PerfilMorador> {
 
   @override
   Widget build(BuildContext context) {
+    final moradorUsuario = Provider.of<MoradorProvider>(context).morador;
+    final repUsuario = Provider.of<RepProvider>(context).rep;
+
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          if (_currentIndex == index && _anteriorIndex == index) {
+            return; // Se o botão clicado for igual ao referente à tela atual, nada acontece
+          }
+          setState(() {
+            _anteriorIndex = _currentIndex;
+            _currentIndex = index;
+          });
+          if (index == 0) {
+            Navigator.pushNamed(
+              context,
+              Routes.buscaScreen,
+              arguments: moradorUsuario,
+            );
+          } else if (index == 1) {
+            Navigator.pushNamed(
+              context,
+              Routes.homeScreen,
+            );
+          } else if (index == 2) {
+            Navigator.pushNamed(
+              context,
+              Routes.perfilMorador,
+              arguments: moradorUsuario,
+            );
+          }
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_balance),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: '',
+          ),
+        ],
+      ),
       appBar: AppBar(
         title: Text('Perfil do Morador'),
       ),
