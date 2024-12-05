@@ -30,7 +30,6 @@ class _CadastrarPagamentoScreenState extends State<CadastrarPagamentoScreen> {
         child: Form(
           key: _formKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TextFormField(
                 decoration: InputDecoration(labelText: 'Descrição'),
@@ -77,7 +76,6 @@ class _CadastrarPagamentoScreenState extends State<CadastrarPagamentoScreen> {
                 },
               ),
               Spacer(),
-              
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {

@@ -186,10 +186,17 @@ class _RepRegisterPage extends State<RepRegisterPage> {
                     },
                     decoration: InputDecoration(labelText: 'Escolha uma opção'),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 60),
                   ElevatedButton(
                     onPressed: () => _registerNewRep(),
                     child: const Text('Registrar rep'),
+                  ),
+                  const SizedBox(height: 15),
+                  ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Voltar'),
                   ),
                   const SizedBox(height: 20),
                   if (errorMessage.isNotEmpty)

@@ -176,23 +176,12 @@ class _CadastrarEventoScreenState extends State<CadastrarEventoScreen> {
                 ],
               ),
               Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Voltar'),
-                  ),
                   ElevatedButton(
                     onPressed: () {
                       _registerEvento();
                     },
                     child: Text('Cadastrar'),
                   ),
-                ],
-              ),
             ],
           ),
         ),

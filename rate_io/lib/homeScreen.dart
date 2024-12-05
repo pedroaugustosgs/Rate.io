@@ -245,7 +245,7 @@ class _HomePage extends State<HomePage> {
                 children: [
                   Text(
                       "Opa, ${moradorUsuario.nome}, parece que você não está cadastrado numa rep."),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       _anteriorIndex = -1;
@@ -253,6 +253,7 @@ class _HomePage extends State<HomePage> {
                     },
                     child: Text('Criar uma República'),
                   ),
+                  
                 ],
               ),
             ),
