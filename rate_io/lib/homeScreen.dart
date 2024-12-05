@@ -5,6 +5,7 @@ import 'package:rate_io/classes/moradorProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_io/classes/rep.dart';
 import 'package:rate_io/classes/repProvider.dart';
+import 'package:rate_io/perfilUsuarioScreen.dart';
 import 'routes.dart';
 
 Future<void> navigateToHomeScreen(BuildContext context) async {
@@ -34,6 +35,10 @@ class _HomePage extends State<HomePage> {
   void _cadastraEvento(BuildContext context) async {
     await Navigator.of(context).pushNamed(Routes.cadastrarEventoScreen);
   }
+
+  Widget _navigatePerfilUsuario({required Map<String, dynamic> morador}) {
+  return PerfilUsuarioScreen(morador: morador);
+}
 
   void _listarMoradores(BuildContext context, Rep rep) async {
     print(rep.id);
@@ -109,10 +114,11 @@ class _HomePage extends State<HomePage> {
               Routes.homeScreen,
             );
           } else if (index == 2) {
-            Navigator.pushNamed(
+            Navigator.push( 
               context,
-              Routes.perfilMorador,
-              arguments: moradorUsuario,
+              MaterialPageRoute(
+                builder: (context) => _navigatePerfilUsuario(morador: moradorUsuario!.toMap()),
+              ),
             );
           }
         },
