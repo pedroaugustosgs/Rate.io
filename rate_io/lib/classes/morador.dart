@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-//import 'rep.dart';
-import 'tarefa.dart';
 import 'gastos.dart';
 import 'pagamento.dart';
 import 'sexo.dart';
@@ -16,10 +14,10 @@ class Morador{
   String faculdade;
   DateTime dataNascimento;
   List<String>? avaliacoesId;
-  List<Tarefa>? tarefas;
+  List<String>? tarefasId;
   List<Pagamento>? pagamentos;
   List<Gastos>? gastos;
-  String? repId; // rep que ele mora
+  String? repId; 
   List<String>? convitesId;
 
   Morador({
@@ -32,14 +30,13 @@ class Morador{
     required this.faculdade,
     required this.dataNascimento,
     this.avaliacoesId,
-    this.tarefas,
+    this.tarefasId,
     this.pagamentos,
     this.gastos,
     this.repId,
     this.convitesId
   });
 
-  // Serializa o Morador para um Map<String, dynamic>
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -51,7 +48,7 @@ class Morador{
       'faculdade': faculdade,
       'dataNascimento': Timestamp.fromDate(dataNascimento),
       'avaliacoesId': avaliacoesId,
-      'tarefas': tarefas?.map((a) => a.toMap()).toList(),
+      'tarefasId': tarefasId,
       'pagamentos': pagamentos?.map((a) => a.toMap()).toList(),
       'gastos': gastos?.map((a) => a.toMap()).toList(),
       'repId': repId,
@@ -59,7 +56,6 @@ class Morador{
     };
   }
 
-  // Desserializa um Map<String, dynamic> para uma instância de Morador
   factory Morador.fromMap(Map<String, dynamic> map) {
     return Morador(
       id: map['id'],
@@ -74,9 +70,9 @@ class Morador{
         ? List<String>.from(map['avaliacoesId'])
         : null,
 
-      tarefas: (map['tarefas'] as List<dynamic>?)
-        ?.map((a) => Tarefa.fromMap(a as Map<String, dynamic>))
-        .toList(),
+      tarefasId: map['tarefasId'] != null
+        ? List<String>.from(map['tarefasId'])
+        : null,
 
       pagamentos: (map['pagamentos'] as List<dynamic>?)
         ?.map((a) => Pagamento.fromMap(a as Map<String, dynamic>))

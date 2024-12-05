@@ -1,6 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:rate_io/AtribuirTarefaScreen.dart';
+import 'package:rate_io/avaliaMoradorScreen.dart';
+import 'package:rate_io/classes/moradorProvider.dart';
+import 'package:rate_io/classes/repProvider.dart';
 import 'package:rate_io/convidarUsuarioScreen.dart';
 import 'package:rate_io/verAvaliacoesScreen.dart';
 import 'package:rate_io/classes/sexo.dart';
@@ -49,6 +54,9 @@ class _PerfilUsuarioState extends State<PerfilUsuarioScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final meuPerfil = Provider.of<MoradorProvider>(context).morador;
+    final minhaRep = Provider.of<RepProvider>(context).rep;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Perfil do Usuário'),
@@ -99,7 +107,7 @@ class _PerfilUsuarioState extends State<PerfilUsuarioScreen> {
                       },
                       child: Text('Avaliações'),
                     ),
-                    if(usuario['repId'] == null)
+                    if(usuario['repId'] == null && meuPerfil!.id == minhaRep!.moradorADMId)
                       ElevatedButton(
                         onPressed: (){
                            Navigator.push(
@@ -111,6 +119,31 @@ class _PerfilUsuarioState extends State<PerfilUsuarioScreen> {
                         },
                         child: Text('Convidar'),
                       ),
+                    if(usuario['repId'] == meuPerfil!.repId)...[
+                      ElevatedButton(
+                        onPressed: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AvaliaMoradorScreen(morador: usuario),
+                            )
+                          );
+                        }, 
+                        child: Text('Avaliar'),
+                      ),
+                      if(meuPerfil.id == minhaRep!.moradorADMId)
+                        ElevatedButton(
+                        onPressed: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AtribuirTarefaScreen(morador: usuario),
+                            )
+                          );
+                        }, 
+                        child: Text('Atribuir Tarefa'),
+                      ),
+                    ]
                   ],
                 ),
               ],
