@@ -24,7 +24,7 @@ class _EditarPerfilMoradorScreenState extends State<EditarPerfilMoradorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editar Perfil do Morador'),
+        title: Text('Editar Meu Perfil'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
