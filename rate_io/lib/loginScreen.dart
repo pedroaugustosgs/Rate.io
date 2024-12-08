@@ -123,17 +123,6 @@ class _LoginPageState extends State<LoginPage> {
                 child: Text('Criar conta'),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
-              child: ElevatedButton(
-                onPressed: _login,
-                child: Text('Recuperar senha'),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 30, vertical: 15), // Aumenta o padding
-                ),
-              ),
-            ),
             Spacer(),
             Padding(
               padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02), // Padding dinâmico
