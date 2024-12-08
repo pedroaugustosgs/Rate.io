@@ -1,24 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rate_io/classes/moradorProvider.dart';
 import 'package:rate_io/perfilUsuarioScreen.dart';
-import 'package:rate_io/routes.dart';
 import 'classes/rep.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'avaliaMoradorScreen.dart';
 import 'classes/repProvider.dart';
-/*
-Widget _navigateAvaliaMorador({required Map<String, dynamic> morador}) {
-  return AvaliaMoradorScreen(morador: morador);
-}
-*/
+
 Widget _navigatePerfilUsuario({required Map<String, dynamic> morador}) {
   return PerfilUsuarioScreen(morador: morador);
-}
-
-
-void _meuPerfil(BuildContext context) async {
-  await Navigator.of(context).pushNamed(Routes.perfilMorador);
 }
 
 class MostraMoradoresScreen extends StatelessWidget {
@@ -33,8 +21,6 @@ class MostraMoradoresScreen extends StatelessWidget {
       Rep? repUsuario = Provider.of<RepProvider>(context).rep;
       rep = repUsuario;
     }
-    final moradorUsuario = Provider.of<MoradorProvider>(context).morador;
-
 
     if (rep == null) {
       return Scaffold(
@@ -74,17 +60,13 @@ class MostraMoradoresScreen extends StatelessWidget {
                 trailing: IconButton(
                   icon: Icon(Icons.label_important_outline_sharp),
                   onPressed: () {
-                    if(morador['id'] == moradorUsuario?.id) {
-                      _meuPerfil(context);
-                    } else {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                            _navigatePerfilUsuario(morador: morador),
-                        ),
-                      );
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                          _navigatePerfilUsuario(morador: morador),
+                      ),
+                    );
                   },
                 )
               );

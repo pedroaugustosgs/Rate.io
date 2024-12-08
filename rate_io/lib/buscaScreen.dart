@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_io/classes/moradorProvider.dart';
+import 'package:rate_io/perfilRepScreen.dart';
 import 'package:rate_io/perfilUsuarioScreen.dart';
 import 'package:rate_io/routes.dart';
 
@@ -12,6 +13,10 @@ class BuscaScreen extends StatefulWidget {
 
 Widget _navigatePerfilUsuario({required Map<String, dynamic> morador}) {
   return PerfilUsuarioScreen(morador: morador);
+}
+
+Widget _navigatePerfilRepublica({required Map<String, dynamic> rep}) {
+  return PerfilRepScreen(rep: rep);
 }
 
 class _BuscaScreenState extends State<BuscaScreen> {
@@ -173,10 +178,13 @@ class _BuscaScreenState extends State<BuscaScreen> {
                           icon: Icon(Icons.label_important_outline_sharp),
                           onPressed: () {
                             if (_buscaRep) {
-                              Navigator.pushNamed(
+                              Navigator.push(
                                 context,
-                                Routes.PerfilrepScreen,
-                                arguments: perfil, 
+                                MaterialPageRoute(
+                                  builder: (context) => _navigatePerfilRepublica(
+                                    rep: perfil,
+                                  ),
+                                ),
                               );
                             } else {
                               Navigator.push(
