@@ -24,11 +24,10 @@ class Routes {
   static const String repRegisterScreen = '/repRegisterScreen';
   static const String avaliaRepScreen = '/avaliaRepScreen';
   static const String avaliaMoradorScreen = '/avaliaMoradorScreen';
-  static const String perfilMorador = '/perfilMorador';
   static const String editarPerfilMoradorScreen = '/editarPerfilMoradorScreen';
 
   static const String perfilUsuarioScreen = '/perfilUsuarioScreen';
-  static const String PerfilrepScreen = '/perfilRepScreen'; 
+  static const String perfilRepScreen = '/perfilRepScreen'; 
   static const String CadastroContaScreen = '/cadastrarContaScreen'; 
   static const String cadastrarPagamentoScreen = '/cadastrarPagamentoScreen'; 
 
@@ -53,8 +52,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => AvaliaRepScreen());
       case editarPerfilMoradorScreen:
         return MaterialPageRoute(builder: (_) => EditarPerfilMoradorScreen());  
-      case PerfilrepScreen:
-        return MaterialPageRoute(builder: (_) => Perfilrepscreen());
+      case perfilRepScreen:
+        return MaterialPageRoute(builder: (_) => PerfilRepScreen(rep: {},));
       case CadastroContaScreen:
         return MaterialPageRoute(builder: (_) => CadastrarContaScreen());
       case cadastrarPagamentoScreen:

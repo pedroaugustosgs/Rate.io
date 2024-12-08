@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:rate_io/classes/moradorProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_io/classes/rep.dart';
 import 'package:rate_io/classes/repProvider.dart';
 import 'package:rate_io/perfilUsuarioScreen.dart';
+import 'package:rate_io/verAvaliacoesRepScreen.dart';
 import 'routes.dart';
 
 Future<void> navigateToHomeScreen(BuildContext context) async {
@@ -44,7 +44,7 @@ class _HomePage extends State<HomePage> {
     print(rep.id);
     await Navigator.of(context).pushNamed(
       Routes.mostraMoradoresScreen,
-      arguments: rep, // Passa o objeto Rep inteiro
+      arguments: rep, 
     );
   }
 
@@ -78,18 +78,28 @@ class _HomePage extends State<HomePage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_isInit) {
-      final moradorUsuario = Provider.of<MoradorProvider>(context).morador;
-      if (moradorUsuario?.repId != null) {
-        fetchAndSetRep(context, moradorUsuario!.repId!);
+      final meuPerfil = Provider.of<MoradorProvider>(context).morador;
+      if (meuPerfil?.repId != null) {
+        fetchAndSetRep(context, meuPerfil!.repId!);
       }
       _isInit = false;
     }
   }
 
+  int calculaIdade(DateTime dataNascimento) {
+    DateTime hoje = DateTime.now();
+    int age = hoje.year - dataNascimento.year;
+    if (hoje.month < dataNascimento.month || 
+        (hoje.month == dataNascimento.month && hoje.day < dataNascimento.day)) {
+      age--;
+    }
+    return age;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final moradorUsuario = Provider.of<MoradorProvider>(context).morador;
-    final repUsuario = Provider.of<RepProvider>(context).rep;
+    final meuPerfil = Provider.of<MoradorProvider>(context).morador;
+    final minhaRep = Provider.of<RepProvider>(context).rep;
 
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
@@ -106,7 +116,7 @@ class _HomePage extends State<HomePage> {
             Navigator.pushNamed(
               context,
               Routes.buscaScreen,
-              arguments: moradorUsuario,
+              arguments: meuPerfil,
             );
           } else if (index == 1) {
             Navigator.pushNamed(
@@ -117,7 +127,7 @@ class _HomePage extends State<HomePage> {
             Navigator.push( 
               context,
               MaterialPageRoute(
-                builder: (context) => _navigatePerfilUsuario(morador: moradorUsuario!.toMap()),
+                builder: (context) => _navigatePerfilUsuario(morador: meuPerfil!.toMap()),
               ),
             );
           }
@@ -137,16 +147,16 @@ class _HomePage extends State<HomePage> {
           ),
         ],
       ),
-      body: moradorUsuario!.repId != null
+      body: meuPerfil!.repId != null
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Olá, ${moradorUsuario.nome}!"),
+                  Text("Olá, ${meuPerfil.nome}!"),
                   Text(
-                      "Data de Nascimento: ${DateFormat('dd/MM/yyyy').format(moradorUsuario.dataNascimento)}"),
-                  Text("Curso: ${moradorUsuario.curso}"),
-                  Text("Rep: ${repUsuario?.nome}"),
+                      "Idade: ${calculaIdade(meuPerfil.dataNascimento)}"),
+                  Text("Curso: ${meuPerfil.curso}"),
+                  Text("Rep: ${minhaRep?.nome}"),
                   Container(
                     padding: EdgeInsets.all(16),
                     child: Column(
@@ -188,13 +198,6 @@ class _HomePage extends State<HomePage> {
                         ElevatedButton(
                           onPressed: () {
                             _anteriorIndex = -1;
-                          },
-                          child: Text('Dívida'),
-                        ),
-                        SizedBox(height: 10),
-                        ElevatedButton(
-                          onPressed: () {
-                            _anteriorIndex = -1;
                             __fluxoDeCaixa(context);
                           },
                           child: Text('Fluxo de Caixa'),
@@ -208,20 +211,21 @@ class _HomePage extends State<HomePage> {
                           child: Text('Avaliar Rep'),
                         ),
                         SizedBox(height: 10),
-                        ElevatedButton(
-                          onPressed: () {
-                            _anteriorIndex = -1;
-                            _cadastraEvento(context);
-                          },
-                          child: Text('Cadastrar Evento'),
-                        ),
+                        if(meuPerfil.id == minhaRep?.moradorADMId)
+                          ElevatedButton(
+                            onPressed: () {
+                              _anteriorIndex = -1;
+                              _cadastraEvento(context);
+                            },
+                            child: Text('Cadastrar Evento'),
+                          ),
                         SizedBox(height: 10),
                         ElevatedButton(
                           onPressed: () {
-                            if (repUsuario != null) {
+                            if (minhaRep != null) {
                               _anteriorIndex = -1;
                               _listarMoradores(context,
-                                  repUsuario); // `repUsuario` é passado aqui
+                                  minhaRep); 
                             } else {
                               _anteriorIndex = -1;
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -232,6 +236,19 @@ class _HomePage extends State<HomePage> {
                             }
                           },
                           child: Text('Moradores'),
+                        ),
+                        SizedBox(height: 10),
+                        ElevatedButton(
+                          onPressed: () {
+                            _anteriorIndex = -1;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => VerAvaliacoesRepScreen(rep: minhaRep!.toMap()),
+                              ),
+                            );
+                          },
+                          child: Text('Ver Avaliações'),
                         ),
                       ],
                     ),
@@ -244,7 +261,7 @@ class _HomePage extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                      "Opa, ${moradorUsuario.nome}, parece que você não está cadastrado numa rep."),
+                      "Opa, ${meuPerfil.nome}, parece que você não está cadastrado numa rep."),
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
