@@ -3,6 +3,7 @@ import 'package:rate_io/convidarUsuarioScreen.dart';
 import 'package:rate_io/verAvaliacoesScreen.dart';
 import 'package:rate_io/buscaScreen.dart';
 import 'package:rate_io/perfilUsuarioScreen.dart';
+import 'package:rate_io/verConvitesScreen.dart';
 import 'loginScreen.dart';
 import 'registerScreen.dart';
 import 'repRegisterScreen.dart';
@@ -37,6 +38,7 @@ class Routes {
   static const String fluxoDeCaixaScreen = '/fluxoDeCaixaScreen';
   static const String verAvaliacoesScreen = '/verAvaliacoesScreen';
   static const String convidarUsuarioScreen = '/convidarUsuarioScreen';
+  static const String verConvitesScreen = '/verConvitesScreen';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -62,6 +64,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => CadastrarEventoScreen());
       case buscaScreen:
         return MaterialPageRoute(builder: (_) => BuscaScreen());
+      case verConvitesScreen:
+        return MaterialPageRoute(builder: (_) => VerConvitesScreen());
       case mostraMoradoresScreen:
         return MaterialPageRoute(
           builder: (_) => MostraMoradoresScreen(),

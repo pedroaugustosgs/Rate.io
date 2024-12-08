@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:rate_io/AtribuirTarefaScreen.dart';
 import 'package:rate_io/avaliaMoradorScreen.dart';
@@ -53,6 +52,16 @@ class _PerfilUsuarioState extends State<PerfilUsuarioScreen> {
     } catch (e) {
       throw Exception('Erro ao carregar dados: $e');
     }
+  }
+
+  int calculaIdade(DateTime dataNascimento) {
+    DateTime hoje = DateTime.now();
+    int age = hoje.year - dataNascimento.year;
+    if (hoje.month < dataNascimento.month || 
+        (hoje.month == dataNascimento.month && hoje.day < dataNascimento.day)) {
+      age--;
+    }
+    return age;
   }
 
   @override
@@ -137,7 +146,7 @@ class _PerfilUsuarioState extends State<PerfilUsuarioScreen> {
                   Text('Telefone: ${usuario['telefone']}', style: TextStyle(fontSize: 24)),
                   Text('Curso: ${usuario['curso']}', style: TextStyle(fontSize: 24)),
                   Text('Faculdade: ${usuario['faculdade']}', style: TextStyle(fontSize: 24)),
-                  Text('Data de nascimento: ${DateFormat('dd/MM/yyyy').format((usuario['dataNascimento'] as Timestamp).toDate())}', style: TextStyle(fontSize: 24)),
+                  Text('Idade: ${calculaIdade(usuario['dataNascimento'].toDate())}', style: TextStyle(fontSize: 24)),
                   SizedBox(height: 20),
                   Column(
                     children: [
@@ -164,6 +173,12 @@ class _PerfilUsuarioState extends State<PerfilUsuarioScreen> {
                             Navigator.of(context).pushNamed(Routes.editarPerfilMoradorScreen);
                           },
                           child: Text('Editar meu perfil'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(Routes.verConvitesScreen);
+                          },
+                          child: Text('Ver convites'),
                         ),
                       ] else ...[
                         if (usuario['repId'] == null && meuPerfil.id == minhaRep!.moradorADMId)
