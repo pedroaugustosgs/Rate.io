@@ -9,14 +9,15 @@ import 'registerScreen.dart';
 import 'repRegisterScreen.dart';
 import 'homeScreen.dart';
 import 'avaliaRepScreen.dart';
-import 'avaliaMoradorScreen.dart'; 
-import 'editarMeuPerfilScreen.dart'; 
+import 'avaliaMoradorScreen.dart';
+import 'editarMeuPerfilScreen.dart';
 import 'perfilRepScreen.dart';
-import 'cadastrarContaScreen.dart'; 
-import 'cadastrarPagamentoScreen.dart'; 
+import 'cadastrarContaScreen.dart';
+import 'cadastrarPagamentoScreen.dart';
 import 'cadastrarEventoScreen.dart';
 import 'mostraMoradoresScreen.dart';
 import 'fluxoDeCaixaScreen.dart';
+import 'mostrarcontasSreen.dart';
 
 class Routes {
   static const String login = '/';
@@ -28,9 +29,9 @@ class Routes {
   static const String editarPerfilMoradorScreen = '/editarPerfilMoradorScreen';
 
   static const String perfilUsuarioScreen = '/perfilUsuarioScreen';
-  static const String perfilRepScreen = '/perfilRepScreen'; 
-  static const String CadastroContaScreen = '/cadastrarContaScreen'; 
-  static const String cadastrarPagamentoScreen = '/cadastrarPagamentoScreen'; 
+  static const String perfilRepScreen = '/perfilRepScreen';
+  static const String CadastroContaScreen = '/cadastrarContaScreen';
+  static const String cadastrarPagamentoScreen = '/cadastrarPagamentoScreen';
 
   static const String cadastrarEventoScreen = '/cadastrarEventoScreen';
   static const String buscaScreen = '/buscaScreen';
@@ -39,6 +40,7 @@ class Routes {
   static const String verAvaliacoesScreen = '/verAvaliacoesScreen';
   static const String convidarUsuarioScreen = '/convidarUsuarioScreen';
   static const String verConvitesScreen = '/verConvitesScreen';
+  static const String mostrarcontasSreen = '/mostrarcontasSreen';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -53,9 +55,12 @@ class Routes {
       case avaliaRepScreen:
         return MaterialPageRoute(builder: (_) => AvaliaRepScreen());
       case editarPerfilMoradorScreen:
-        return MaterialPageRoute(builder: (_) => EditarPerfilMoradorScreen());  
+        return MaterialPageRoute(builder: (_) => EditarPerfilMoradorScreen());
       case perfilRepScreen:
-        return MaterialPageRoute(builder: (_) => PerfilRepScreen(rep: {},));
+        return MaterialPageRoute(
+            builder: (_) => PerfilRepScreen(
+                  rep: {},
+                ));
       case CadastroContaScreen:
         return MaterialPageRoute(builder: (_) => CadastrarContaScreen());
       case cadastrarPagamentoScreen:
@@ -70,20 +75,30 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => MostraMoradoresScreen(),
           settings: RouteSettings(
-            arguments:
-                settings.arguments,
+            arguments: settings.arguments,
           ),
         );
       case fluxoDeCaixaScreen:
         return MaterialPageRoute(builder: (_) => FluxoDeCaixaScreen());
       case perfilUsuarioScreen:
-        return MaterialPageRoute(builder: (_) => PerfilUsuarioScreen(morador: {},));
+        return MaterialPageRoute(
+            builder: (_) => PerfilUsuarioScreen(
+                  morador: {},
+                ));
       case verAvaliacoesScreen:
-        return MaterialPageRoute(builder: (_) => VerAvaliacoesScreen(usuario: {},));
+        return MaterialPageRoute(
+            builder: (_) => VerAvaliacoesScreen(
+                  usuario: {},
+                ));
       case avaliaMoradorScreen:
-        return MaterialPageRoute(builder: (_) => AvaliaMoradorScreen(morador: {}));
+        return MaterialPageRoute(
+            builder: (_) => AvaliaMoradorScreen(morador: {}));
       case convidarUsuarioScreen:
-        return MaterialPageRoute(builder: (_) => ConvidarUsuarioScreen(usuario: {}));
+        return MaterialPageRoute(
+            builder: (_) => ConvidarUsuarioScreen(usuario: {}));
+      case mostrarcontasSreen:
+        return MaterialPageRoute(
+            builder: (_) => MostrarDespesasScreen(rep: {}));
       default:
         return MaterialPageRoute(builder: (_) => LoginPage()); // Tela padrão
     }

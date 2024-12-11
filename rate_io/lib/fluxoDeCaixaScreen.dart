@@ -29,6 +29,12 @@ class _FluxoDeCaixaScreenState extends State<FluxoDeCaixaScreen> {
               },
               child: const Text('Cadastrar Pagamento'),
             ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/mostrarcontasSreen');
+              },
+              child: const Text('Ver Pagamentos'),
+            ),
           ],
         ),
       ),
